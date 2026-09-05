@@ -124,6 +124,34 @@ img { max-width: 100%; display: block; }
 .pill-phone .pill-icon { background: var(--em-black); }
 .pill-whatsapp { background: var(--em-white); color: var(--em-black); border: 2px solid var(--em-black); }
 .pill-whatsapp .pill-icon { background: #25D366; }
+.pill-dark { background: var(--em-black); color: var(--em-white); width: 100%; }
+
+.branch-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.branch-contact-card {
+  background: var(--em-yellow);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  aspect-ratio: 1 / 1;
+}
+.branch-contact-card h3 { font-size: 22px; }
+.branch-contact-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .branch-contact-grid { grid-template-columns: 1fr; }
+  .branch-contact-card { aspect-ratio: auto; }
+}
 
 /* Header */
 .site-header {
