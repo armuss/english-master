@@ -195,6 +195,27 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   cursor: pointer;
 }
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  background: var(--em-sand);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.lang-btn {
+  border: none;
+  background: transparent;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--em-text-soft);
+}
+.lang-btn.active { background: var(--em-black); color: var(--em-white); }
 
 /* Hero */
 .hero {

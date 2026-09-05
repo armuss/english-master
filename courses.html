@@ -17,13 +17,17 @@
       </span>
     </a>
     <nav class="main-nav" id="mainNav">
-      <a href="index.html">Home</a>
-      <a href="courses.html" class="active">Courses</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="courses.html" class="active" data-i18n="nav.courses">Courses</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-actions">
-      <a class="btn btn-primary" href="contact.html#lead-form">Book a Free Trial</a>
+      <div class="lang-toggle" id="langToggle">
+        <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-lang="tr" aria-pressed="false">TR</button>
+      </div>
+      <a class="btn btn-primary" href="contact.html#lead-form" data-i18n="common.bookTrial">Book a Free Trial</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#121212" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
@@ -33,9 +37,9 @@
 
 <section class="page-hero">
   <div class="container">
-    <div class="breadcrumb"><a href="index.html">Home</a> / Courses</div>
-    <h1>Courses</h1>
-    <p class="text-soft" style="margin-top:12px; max-width:520px;">Every course starts with a free placement test, so you always begin at the right level.</p>
+    <div class="breadcrumb"><a href="index.html" data-i18n="nav.home">Home</a> / <span data-i18n="courses.hero.title">Courses</span></div>
+    <h1 data-i18n="courses.hero.title">Courses</h1>
+    <p class="text-soft" style="margin-top:12px; max-width:520px;" data-i18n="courses.hero.desc">Every course starts with a free placement test, so you always begin at the right level.</p>
   </div>
 </section>
 
@@ -48,12 +52,12 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 19V6.5C4 5.7 4.7 5 5.5 5H12v14H5.5A1.5 1.5 0 0 1 4 19z" stroke="#121212" stroke-width="1.5" fill="none"/><path d="M12 5h6.5c.8 0 1.5.7 1.5 1.5V19a1.5 1.5 0 0 1-1.5 1.5H12" stroke="#121212" stroke-width="1.5" fill="none"/></svg>
         </div>
         <div class="course-card-body">
-          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;">General English</h4>
-          <p class="text-soft" style="font-size:14px;">Speaking, listening, grammar and vocabulary from absolute beginner (A1) to advanced (C1), in small groups.</p>
-          <div class="course-tags"><span class="tag">A1–C1</span><span class="tag">Group</span><span class="tag">In-Person &amp; Online</span></div>
+          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;" data-i18n="courses.card1.title">General English</h4>
+          <p class="text-soft" style="font-size:14px;" data-i18n="courses.card1.desc">Speaking, listening, grammar and vocabulary from absolute beginner (A1) to advanced (C1), in small groups.</p>
+          <div class="course-tags"><span class="tag" data-i18n="courses.card1.tag1">A1–C1</span><span class="tag" data-i18n="courses.card1.tag2">Group</span><span class="tag" data-i18n="courses.card1.tag3">In-Person &amp; Online</span></div>
           <div class="course-card-footer">
-            <span class="course-price"><strong>[Price]</strong> / month</span>
-            <a class="btn btn-sm btn-primary" href="contact.html#lead-form">Enroll</a>
+            <span class="course-price"><strong>[Price]</strong> <span data-i18n="common.perMonth">/ month</span></span>
+            <a class="btn btn-sm btn-primary" href="contact.html#lead-form" data-i18n="common.enroll">Enroll</a>
           </div>
         </div>
       </div>
@@ -63,12 +67,12 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="#121212" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
         </div>
         <div class="course-card-body">
-          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;">IELTS Preparation</h4>
-          <p class="text-soft" style="font-size:14px;">Score-focused training across all four IELTS skills, with weekly timed mock exams.</p>
-          <div class="course-tags"><span class="tag">Intermediate+</span><span class="tag">Exam Prep</span></div>
+          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;" data-i18n="courses.card2.title">IELTS Preparation</h4>
+          <p class="text-soft" style="font-size:14px;" data-i18n="courses.card2.desc">Score-focused training across all four IELTS skills, with weekly timed mock exams.</p>
+          <div class="course-tags"><span class="tag" data-i18n="courses.card2.tag1">Intermediate+</span><span class="tag" data-i18n="courses.card2.tag2">Exam Prep</span></div>
           <div class="course-card-footer">
-            <span class="course-price"><strong>[Price]</strong> / month</span>
-            <a class="btn btn-sm btn-primary" href="contact.html#lead-form">Enroll</a>
+            <span class="course-price"><strong>[Price]</strong> <span data-i18n="common.perMonth">/ month</span></span>
+            <a class="btn btn-sm btn-primary" href="contact.html#lead-form" data-i18n="common.enroll">Enroll</a>
           </div>
         </div>
       </div>
@@ -78,12 +82,12 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="#121212" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
         </div>
         <div class="course-card-body">
-          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;">TOEFL Preparation</h4>
-          <p class="text-soft" style="font-size:14px;">Practice with real test formats and strategy sessions for the TOEFL iBT.</p>
-          <div class="course-tags"><span class="tag">Intermediate+</span><span class="tag">Exam Prep</span></div>
+          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;" data-i18n="courses.card3.title">TOEFL Preparation</h4>
+          <p class="text-soft" style="font-size:14px;" data-i18n="courses.card3.desc">Practice with real test formats and strategy sessions for the TOEFL iBT.</p>
+          <div class="course-tags"><span class="tag" data-i18n="courses.card2.tag1">Intermediate+</span><span class="tag" data-i18n="courses.card2.tag2">Exam Prep</span></div>
           <div class="course-card-footer">
-            <span class="course-price"><strong>[Price]</strong> / month</span>
-            <a class="btn btn-sm btn-primary" href="contact.html#lead-form">Enroll</a>
+            <span class="course-price"><strong>[Price]</strong> <span data-i18n="common.perMonth">/ month</span></span>
+            <a class="btn btn-sm btn-primary" href="contact.html#lead-form" data-i18n="common.enroll">Enroll</a>
           </div>
         </div>
       </div>
@@ -93,12 +97,12 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="#121212" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
         </div>
         <div class="course-card-body">
-          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;">YDS / YÖKDİL</h4>
-          <p class="text-soft" style="font-size:14px;">Grammar-dense, exam-specific preparation for Turkey's national academic English exams.</p>
-          <div class="course-tags"><span class="tag">Advanced</span><span class="tag">Exam Prep</span></div>
+          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;" data-i18n="courses.card4.title">YDS / YÖKDİL</h4>
+          <p class="text-soft" style="font-size:14px;" data-i18n="courses.card4.desc">Grammar-dense, exam-specific preparation for Turkey's national academic English exams.</p>
+          <div class="course-tags"><span class="tag" data-i18n="courses.card4.tag1">Advanced</span><span class="tag" data-i18n="courses.card2.tag2">Exam Prep</span></div>
           <div class="course-card-footer">
-            <span class="course-price"><strong>[Price]</strong> / month</span>
-            <a class="btn btn-sm btn-primary" href="contact.html#lead-form">Enroll</a>
+            <span class="course-price"><strong>[Price]</strong> <span data-i18n="common.perMonth">/ month</span></span>
+            <a class="btn btn-sm btn-primary" href="contact.html#lead-form" data-i18n="common.enroll">Enroll</a>
           </div>
         </div>
       </div>
@@ -108,12 +112,12 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="12" rx="1.5" stroke="#121212" stroke-width="1.5"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="#121212" stroke-width="1.5" fill="none"/></svg>
         </div>
         <div class="course-card-body">
-          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;">Business English</h4>
-          <p class="text-soft" style="font-size:14px;">Meetings, presentations, negotiation and written communication for the workplace.</p>
-          <div class="course-tags"><span class="tag">Upper-Intermediate</span><span class="tag">1-to-1</span></div>
+          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;" data-i18n="courses.card5.title">Business English</h4>
+          <p class="text-soft" style="font-size:14px;" data-i18n="courses.card5.desc">Meetings, presentations, negotiation and written communication for the workplace.</p>
+          <div class="course-tags"><span class="tag" data-i18n="courses.card5.tag1">Upper-Intermediate</span><span class="tag" data-i18n="courses.card5.tag2">1-to-1</span></div>
           <div class="course-card-footer">
-            <span class="course-price"><strong>[Price]</strong> / month</span>
-            <a class="btn btn-sm btn-primary" href="contact.html#lead-form">Enroll</a>
+            <span class="course-price"><strong>[Price]</strong> <span data-i18n="common.perMonth">/ month</span></span>
+            <a class="btn btn-sm btn-primary" href="contact.html#lead-form" data-i18n="common.enroll">Enroll</a>
           </div>
         </div>
       </div>
@@ -123,12 +127,12 @@
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="#121212" stroke-width="1.5"/><path d="M4 19c0-3 2.2-5 5-5s5 2 5 5" stroke="#121212" stroke-width="1.5" fill="none"/><circle cx="17" cy="9" r="2.2" stroke="#121212" stroke-width="1.4"/><path d="M14.5 19c.2-2.4 1.7-4 3.5-4" stroke="#121212" stroke-width="1.4" fill="none"/></svg>
         </div>
         <div class="course-card-body">
-          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;">Kids &amp; Teens</h4>
-          <p class="text-soft" style="font-size:14px;">Age-appropriate groups (7–17) that build confidence through games, stories and speaking practice.</p>
-          <div class="course-tags"><span class="tag">Ages 7–17</span><span class="tag">Group</span></div>
+          <h4 style="font-size:18px; font-family:'Archivo',sans-serif; font-weight:900;" data-i18n="courses.card6.title">Kids &amp; Teens</h4>
+          <p class="text-soft" style="font-size:14px;" data-i18n="courses.card6.desc">Age-appropriate groups (7–17) that build confidence through games, stories and speaking practice.</p>
+          <div class="course-tags"><span class="tag" data-i18n="courses.card6.tag1">Ages 7–17</span><span class="tag" data-i18n="courses.card6.tag2">Group</span></div>
           <div class="course-card-footer">
-            <span class="course-price"><strong>[Price]</strong> / month</span>
-            <a class="btn btn-sm btn-primary" href="contact.html#lead-form">Enroll</a>
+            <span class="course-price"><strong>[Price]</strong> <span data-i18n="common.perMonth">/ month</span></span>
+            <a class="btn btn-sm btn-primary" href="contact.html#lead-form" data-i18n="common.enroll">Enroll</a>
           </div>
         </div>
       </div>
@@ -140,15 +144,15 @@
 <section class="bg-sand">
   <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
     <div>
-      <h3 style="font-size:22px; margin-bottom:8px;">Still not sure which course fits?</h3>
-      <p class="text-soft">Take the free placement test and an advisor will recommend a course and level.</p>
+      <h3 style="font-size:22px; margin-bottom:8px;" data-i18n="courses.notSure.title">Still not sure which course fits?</h3>
+      <p class="text-soft" data-i18n="courses.notSure.desc">Take the free placement test and an advisor will recommend a course and level.</p>
     </div>
-    <a class="btn btn-primary" href="contact.html#lead-form">Take the Placement Test</a>
+    <a class="btn btn-primary" href="contact.html#lead-form" data-i18n="courses.notSure.cta">Take the Placement Test</a>
   </div>
 </section>
 
 <a href="contact.html#lead-form" class="get-info-tab">
-  Get Information
+  <span data-i18n="common.getInfo">Get Information</span>
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="writing-mode:horizontal-tb;"><path d="M9 6l6 6-6 6" stroke="#121212" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </a>
 
@@ -161,37 +165,37 @@
             <img src="images/logo.png" alt="English Master Language Academy" class="logo-img logo-img-footer">
           </span>
         </div>
-        <p>A language school built around real conversation, exam results and teachers who care whether you actually improve.</p>
+        <p data-i18n="footer.tagline">A language school built around real conversation, exam results and teachers who care whether you actually improve.</p>
       </div>
       <div>
-        <h5>Explore</h5>
+        <h5 data-i18n="footer.explore">Explore</h5>
         <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="courses.html">Courses</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="courses.html" data-i18n="nav.courses">Courses</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </div>
       </div>
       <div>
-        <h5>Courses</h5>
+        <h5 data-i18n="footer.coursesHeading">Courses</h5>
         <div class="footer-links">
-          <a href="courses.html">General English</a>
-          <a href="courses.html">IELTS / TOEFL / YDS</a>
-          <a href="courses.html">Business English</a>
-          <a href="courses.html">Kids &amp; Teens</a>
+          <a href="courses.html" data-i18n="footer.courseGeneral">General English</a>
+          <a href="courses.html" data-i18n="footer.courseExam">IELTS / TOEFL / YDS</a>
+          <a href="courses.html" data-i18n="footer.courseBusiness">Business English</a>
+          <a href="courses.html" data-i18n="footer.courseKids">Kids &amp; Teens</a>
         </div>
       </div>
       <div>
-        <h5>Contact</h5>
+        <h5 data-i18n="footer.contactHeading">Contact</h5>
         <div class="footer-links">
-          <a href="tel:+900000000000">[Phone Number]</a>
-          <a href="mailto:info@example.com">[Email Address]</a>
-          <span>[Address, City]</span>
+          <a href="tel:+900000000000" data-i18n="footer.phone">[Phone Number]</a>
+          <a href="mailto:info@example.com" data-i18n="footer.email">[Email Address]</a>
+          <span data-i18n="footer.address">[Address, City]</span>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year"></span> English Master. All rights reserved.</span>
+      <span>© <span id="year"></span> English Master. <span data-i18n="footer.rights">All rights reserved.</span></span>
       <div class="social-row">
         <a class="social-icon" href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="5" stroke="#d8d5c9" stroke-width="1.5"/><circle cx="12" cy="12" r="3.5" stroke="#d8d5c9" stroke-width="1.5"/><circle cx="17" cy="7" r="1" fill="#d8d5c9"/></svg></a>
         <a class="social-icon" href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="4" stroke="#d8d5c9" stroke-width="1.5"/><path d="M10.5 9.5v5l4.5-2.5z" fill="#d8d5c9"/></svg></a>
@@ -201,6 +205,7 @@
   </div>
 </footer>
 
+<script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
