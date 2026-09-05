@@ -176,11 +176,11 @@ img { max-width: 100%; display: block; }
 }
 .logo-badge-footer { padding: 10px 16px; border-radius: 12px; }
 .logo-img {
-  height: 34px;
+  height: 54px;
   width: auto;
   display: block;
 }
-.logo-img-footer { height: 28px; }
+.logo-img-footer { height: 42px; }
 .main-nav {
   display: flex;
   align-items: center;
