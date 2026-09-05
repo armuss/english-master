@@ -409,7 +409,7 @@ section { padding: 88px 0; }
 .course-card:hover { box-shadow: var(--em-shadow); transform: translateY(-2px); }
 .course-card-top {
   height: 120px;
-  background: var(--em-sand);
+  background: var(--em-yellow);
   display: flex;
   align-items: center;
   padding: 0 24px;
