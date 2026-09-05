@@ -151,6 +151,8 @@
       "contact.branches.kicker": "Find a branch",
       "contact.branches.title": "Our locations",
       "contact.branch.address": "[Address line, City]",
+      "contact.branch.yenimahalle": "Yenimahalle Branch",
+      "contact.branch.korfez": "Körfez Branch (Marina)",
 
       "courseDetail.kicker": "Course at English Master",
       "courseDetail.desc": "A structured path from absolute beginner to advanced, built around real conversation in small groups.",
@@ -454,6 +456,8 @@
       "contact.branches.kicker": "Şube Bul",
       "contact.branches.title": "Şubelerimiz",
       "contact.branch.address": "[Adres satırı, Şehir]",
+      "contact.branch.yenimahalle": "Yenimahalle Şube",
+      "contact.branch.korfez": "Körfez Şube (Marina)",
 
       "courseDetail.kicker": "English Master'da Kurs",
       "courseDetail.desc": "Küçük gruplarda gerçek konuşma pratiği etrafında kurulmuş, tam başlangıçtan ileri seviyeye yapılandırılmış bir yol.",
