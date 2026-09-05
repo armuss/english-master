@@ -184,7 +184,30 @@
       "courseDetail.books.level5": "Headway — Upper-Intermediate",
       "courseDetail.books.level6": "Headway — Advanced",
       "courseDetail.ctaBanner.title": "Ready to start your General English journey?",
-      "courseDetail.breadcrumb.courses": "Courses"
+      "courseDetail.breadcrumb.courses": "Courses",
+
+      "courseDetail.classTypes.kicker": "Class Options",
+      "courseDetail.classTypes.heading": "Our Class Types",
+      "courseDetail.classTypes.sub": "English Master Offers",
+      "courseDetail.classTypes.semi.title": "Semi-Intensive",
+      "courseDetail.classTypes.semi.sub": "General English",
+      "courseDetail.classTypes.intensive.title": "Intensive",
+      "courseDetail.classTypes.intensive.sub": "General English",
+      "courseDetail.classTypes.feature.inPerson": "In-Person Classes",
+      "courseDetail.classTypes.semi.lessons": "[X] Lessons per Week",
+      "courseDetail.classTypes.intensive.lessons": "[X] Lessons per Week",
+      "courseDetail.classTypes.semi.duration": "Duration [X] Weeks",
+      "courseDetail.classTypes.intensive.duration": "Duration [X] Weeks",
+      "courseDetail.classTypes.feature.startsMonday": "Starts Every Monday",
+      "courseDetail.classTypes.cta": "Inquire Now",
+
+      "courseDetail.process.kicker": "Enrollment",
+      "courseDetail.process.heading": "Our Registration Process",
+      "courseDetail.process.desc": "Before joining any of our programs, students take an online placement test that checks writing, speaking and reading skills. Once you enroll in General English, you'll get access to our student portal to complete the steps below:",
+      "courseDetail.process.step1": "Register",
+      "courseDetail.process.step2": "Grammar Test",
+      "courseDetail.process.step3": "Writing Test",
+      "courseDetail.process.step4": "Speaking Test"
     },
     tr: {
       "nav.home": "Anasayfa",
@@ -370,7 +393,30 @@
       "courseDetail.books.level5": "Headway — Orta Üstü",
       "courseDetail.books.level6": "Headway — İleri Seviye",
       "courseDetail.ctaBanner.title": "Genel İngilizce yolculuğunuza başlamaya hazır mısınız?",
-      "courseDetail.breadcrumb.courses": "Kurslar"
+      "courseDetail.breadcrumb.courses": "Kurslar",
+
+      "courseDetail.classTypes.kicker": "Sınıf Seçenekleri",
+      "courseDetail.classTypes.heading": "Sınıf Türlerimiz",
+      "courseDetail.classTypes.sub": "English Master'ın Sunduğu Seçenekler",
+      "courseDetail.classTypes.semi.title": "Yarı Yoğun",
+      "courseDetail.classTypes.semi.sub": "Genel İngilizce",
+      "courseDetail.classTypes.intensive.title": "Yoğun",
+      "courseDetail.classTypes.intensive.sub": "Genel İngilizce",
+      "courseDetail.classTypes.feature.inPerson": "Yüz Yüze Dersler",
+      "courseDetail.classTypes.semi.lessons": "Haftada [X] Ders",
+      "courseDetail.classTypes.intensive.lessons": "Haftada [X] Ders",
+      "courseDetail.classTypes.semi.duration": "Süre [X] Hafta",
+      "courseDetail.classTypes.intensive.duration": "Süre [X] Hafta",
+      "courseDetail.classTypes.feature.startsMonday": "Her Pazartesi Başlıyor",
+      "courseDetail.classTypes.cta": "Şimdi Sorgula",
+
+      "courseDetail.process.kicker": "Kayıt",
+      "courseDetail.process.heading": "Kayıt Sürecimiz",
+      "courseDetail.process.desc": "Programlarımızdan herhangi birine katılmadan önce, öğrenciler yazma, konuşma ve okuma becerilerini ölçen çevrimiçi bir seviye tespit sınavına girer. Genel İngilizce kursuna kaydolduktan sonra, aşağıdaki adımları tamamlamak için öğrenci portalımıza erişiminiz olur:",
+      "courseDetail.process.step1": "Kayıt Ol",
+      "courseDetail.process.step2": "Dilbilgisi Testi",
+      "courseDetail.process.step3": "Yazma Testi",
+      "courseDetail.process.step4": "Konuşma Testi"
     }
   };
 

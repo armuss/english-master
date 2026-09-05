@@ -744,3 +744,116 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--em-yellow);
   .course-info-grid { grid-template-columns: 1fr; }
   .book-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
+
+/* Class type cards */
+.class-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.class-type-card {
+  background: var(--em-white);
+  border: 1px solid var(--em-border);
+  border-radius: 20px;
+  padding: 36px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: center;
+}
+.class-type-card h3 { font-size: 25px; }
+.class-type-sub {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--em-text-soft);
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--em-border);
+}
+.class-type-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+.class-type-features li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.class-type-features .feature-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--em-sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Registration process */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  position: relative;
+  margin-top: 12px;
+}
+.process-steps::before {
+  content: "";
+  position: absolute;
+  top: 42px;
+  left: 12.5%;
+  right: 12.5%;
+  border-top: 2px dashed var(--em-border);
+  z-index: 0;
+}
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.process-step-badge {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--em-sand);
+  border: 1px solid var(--em-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.process-step-num {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--em-black);
+  color: var(--em-white);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.process-step-label { font-size: 14px; font-weight: 800; }
+
+@media (max-width: 900px) {
+  .class-type-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 32px; }
+  .process-steps::before { display: none; }
+}
