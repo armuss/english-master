@@ -18,7 +18,21 @@
     </a>
     <nav class="main-nav" id="mainNav">
       <a href="index.html" data-i18n="nav.home">Home</a>
-      <a href="courses.html" class="active" data-i18n="nav.courses">Courses</a>
+      <div class="nav-item has-dropdown">
+        <button type="button" class="dropdown-trigger active" aria-expanded="false" aria-haspopup="true">
+          <span data-i18n="nav.courses">Courses</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown-menu">
+    <a href="course-general-english.html" data-i18n="footer.courseGeneral">General English</a>
+    <a href="courses.html#ielts" data-i18n="courses.card2.title">IELTS Preparation</a>
+    <a href="courses.html#toefl" data-i18n="courses.card3.title">TOEFL Preparation</a>
+    <a href="courses.html#yds" data-i18n="courses.card4.title">YDS / YÖKDİL</a>
+    <a href="courses.html#business" data-i18n="courses.card5.title">Business English</a>
+    <a href="courses.html#kids" data-i18n="courses.card6.title">Kids &amp; Teens</a>
+    <a href="courses.html" class="dropdown-viewall" data-i18n="home.courses.viewAll">View All Courses</a>
+        </div>
+      </div>
       <a href="about.html" data-i18n="nav.about">About</a>
       <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
@@ -43,11 +57,11 @@
   </div>
 </section>
 
-<section>
+<section class="reveal">
   <div class="container">
-    <div class="course-grid">
+    <div class="course-grid stagger">
 
-      <div class="course-card">
+      <div class="course-card" id="general">
         <div class="course-card-top">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 19V6.5C4 5.7 4.7 5 5.5 5H12v14H5.5A1.5 1.5 0 0 1 4 19z" stroke="#121212" stroke-width="1.5" fill="none"/><path d="M12 5h6.5c.8 0 1.5.7 1.5 1.5V19a1.5 1.5 0 0 1-1.5 1.5H12" stroke="#121212" stroke-width="1.5" fill="none"/></svg>
         </div>
@@ -62,7 +76,7 @@
         </div>
       </div>
 
-      <div class="course-card">
+      <div class="course-card" id="ielts">
         <div class="course-card-top">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="#121212" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
         </div>
@@ -77,7 +91,7 @@
         </div>
       </div>
 
-      <div class="course-card">
+      <div class="course-card" id="toefl">
         <div class="course-card-top">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="#121212" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
         </div>
@@ -92,7 +106,7 @@
         </div>
       </div>
 
-      <div class="course-card">
+      <div class="course-card" id="yds">
         <div class="course-card-top">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="#121212" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
         </div>
@@ -107,7 +121,7 @@
         </div>
       </div>
 
-      <div class="course-card">
+      <div class="course-card" id="business">
         <div class="course-card-top">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="12" rx="1.5" stroke="#121212" stroke-width="1.5"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="#121212" stroke-width="1.5" fill="none"/></svg>
         </div>
@@ -122,7 +136,7 @@
         </div>
       </div>
 
-      <div class="course-card">
+      <div class="course-card" id="kids">
         <div class="course-card-top">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="#121212" stroke-width="1.5"/><path d="M4 19c0-3 2.2-5 5-5s5 2 5 5" stroke="#121212" stroke-width="1.5" fill="none"/><circle cx="17" cy="9" r="2.2" stroke="#121212" stroke-width="1.4"/><path d="M14.5 19c.2-2.4 1.7-4 3.5-4" stroke="#121212" stroke-width="1.4" fill="none"/></svg>
         </div>
@@ -141,7 +155,7 @@
   </div>
 </section>
 
-<section class="bg-sand">
+<section class="bg-sand reveal">
   <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
     <div>
       <h3 style="font-size:22px; margin-bottom:8px;" data-i18n="courses.notSure.title">Still not sure which course fits?</h3>
@@ -171,7 +185,21 @@
         <h5 data-i18n="footer.explore">Explore</h5>
         <div class="footer-links">
           <a href="index.html" data-i18n="nav.home">Home</a>
-          <a href="courses.html" data-i18n="nav.courses">Courses</a>
+          <div class="nav-item has-dropdown">
+        <button type="button" class="dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          <span data-i18n="nav.courses">Courses</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown-menu">
+    <a href="course-general-english.html" data-i18n="footer.courseGeneral">General English</a>
+    <a href="courses.html#ielts" data-i18n="courses.card2.title">IELTS Preparation</a>
+    <a href="courses.html#toefl" data-i18n="courses.card3.title">TOEFL Preparation</a>
+    <a href="courses.html#yds" data-i18n="courses.card4.title">YDS / YÖKDİL</a>
+    <a href="courses.html#business" data-i18n="courses.card5.title">Business English</a>
+    <a href="courses.html#kids" data-i18n="courses.card6.title">Kids &amp; Teens</a>
+    <a href="courses.html" class="dropdown-viewall" data-i18n="home.courses.viewAll">View All Courses</a>
+        </div>
+      </div>
           <a href="about.html" data-i18n="nav.about">About</a>
           <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </div>
@@ -206,6 +234,7 @@
 </footer>
 
 <script src="js/i18n.js"></script>
+<script src="js/motion.js"></script>
 <script src="js/main.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
