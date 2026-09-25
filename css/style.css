@@ -468,6 +468,33 @@ section { padding: 88px 0; }
 }
 .ask-label { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--em-text-faint); }
 
+/* FAQ accordion */
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--em-white);
+  border: 1px solid var(--em-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 18px 22px;
+  font-weight: 800;
+  font-size: 15px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; font-size: 22px; font-weight: 400; color: var(--em-text-soft); flex-shrink: 0; }
+.faq-item[open] summary::after { content: "\2013"; }
+.faq-item p { padding: 0 22px 20px; margin: 0; font-size: 14px; line-height: 1.6; color: var(--em-text-soft); }
+
+/* Logo mark beside text (replaces SINCE seal) */
+.logo-mark-img { width: 96px; height: auto; flex-shrink: 0; }
+
 /* Lead form */
 .form-card {
   background: var(--em-white);
@@ -536,6 +563,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--em-yellow);
   flex-wrap: wrap;
 }
 .cta-banner h2 { color: var(--em-white); font-size: 30px; max-width: 480px; }
+.cta-banner-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 
 /* Footer */
 .site-footer { background: var(--em-black); color: #d8d5c9; padding: 64px 0 24px; }
@@ -750,6 +778,27 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--em-yellow);
   flex-shrink: 0;
   margin-top: 1px;
 }
+.why-item-text { display: flex; flex-direction: column; gap: 4px; }
+.why-item-title { font-weight: 800; font-size: 15px; }
+.why-item-desc { font-size: 14px; font-weight: 400; color: var(--em-text-soft); }
+
+/* Junior level cards */
+.jnr-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.jnr-card {
+  background: var(--em-white);
+  border: 1px solid var(--em-border);
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.jnr-card h3 { font-size: 22px; }
+.jnr-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; color: var(--em-text-soft); }
+@media (max-width: 900px) { .jnr-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 600px) { .jnr-grid { grid-template-columns: 1fr; } }
 
 .book-grid {
   display: grid;
