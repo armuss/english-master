@@ -309,31 +309,32 @@ img { max-width: 100%; display: block; }
 .hero {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  min-height: 520px;
+  height: 560px;
 }
 .hero-copy {
   background: var(--em-yellow);
-  padding: 72px 64px;
+  padding: 56px 64px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
+  overflow: auto;
 }
-.hero-copy h1 { font-size: 46px; line-height: 1.08; color: var(--em-black); }
+.hero-copy h1 { font-size: 42px; line-height: 1.1; color: var(--em-black); }
 .hero-copy p { font-size: 16px; color: #3a3a35; max-width: 440px; }
 .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
 .hero-photo {
   background: var(--em-black);
-  padding: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 .hero-photo-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 20px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
 }
 .photo-placeholder {
   width: 100%;
@@ -429,7 +430,7 @@ section { padding: 88px 0; }
 }
 .course-price { font-size: 13px; color: var(--em-text-soft); }
 .course-price strong { color: var(--em-text); font-size: 18px; font-family: 'Archivo', sans-serif; }
-.course-card-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 6px; }
+.course-card-footer { margin-top: auto; display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-top: 6px; }
 
 /* Seal badge */
 .seal {
@@ -636,8 +637,9 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--em-yellow);
   .main-nav { display: none; }
   .nav-toggle { display: flex; }
   .header-actions .btn-primary { display: none; }
-  .hero { grid-template-columns: 1fr; }
-  .hero-copy, .hero-photo { padding: 40px 24px; }
+  .hero { grid-template-columns: 1fr; height: auto; }
+  .hero-copy { padding: 40px 24px; }
+  .hero-photo { height: 280px; }
   .hero-copy h1 { font-size: 34px; }
   .feature-grid, .course-grid, .stat-grid, .branch-grid, .footer-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .form-row { grid-template-columns: 1fr; }
