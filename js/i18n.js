@@ -9,7 +9,6 @@
       "common.getInfo": "Get Information",
       "common.details": "Details",
       "common.enroll": "Enroll",
-      "common.perMonth": "/ month",
       "common.sinceLabel": "SINCE",
 
       "footer.tagline": "A language school built around real conversation, exam results and teachers who care whether you actually improve.",
@@ -336,7 +335,6 @@
       "common.getInfo": "Bilgi Al",
       "common.details": "Detaylar",
       "common.enroll": "Kayıt Ol",
-      "common.perMonth": "/ ay",
       "common.sinceLabel": "KURULUŞ",
 
       "footer.tagline": "Gerçek konuşma pratiği, sınav sonuçları ve gerçekten gelişip gelişmediğinizi önemseyen öğretmenler etrafında kurulmuş bir dil okulu.",
