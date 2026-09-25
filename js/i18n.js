@@ -123,8 +123,8 @@
       "about.tf3.desc": "Teachers attend regular workshops to keep methods current.",
       "about.tf4.title": "Reviewed by Students",
       "about.tf4.desc": "Teacher ratings are tracked every term to keep quality consistent.",
-      "about.milestone.title": "[X] years of helping students speak with confidence.",
-      "about.milestone.desc": "[Add a short milestone timeline or founding story here once you have the details finalized.]",
+      "about.milestone.title": "11 years of helping students speak with confidence.",
+      "about.milestone.desc": "Since 2015, English Master has taught more than 5,000 students across our Yenimahalle and Körfez branches, with 30+ certified teachers on staff.",
       "about.ctaBanner.title": "Come see a class for yourself.",
 
       "contact.hero.title": "Get in touch",
@@ -449,8 +449,8 @@
       "about.tf3.desc": "Öğretmenler yöntemlerini güncel tutmak için düzenli atölyelere katılır.",
       "about.tf4.title": "Öğrenciler Tarafından Değerlendirilir",
       "about.tf4.desc": "Kaliteyi tutarlı tutmak için öğretmen puanları her dönem takip edilir.",
-      "about.milestone.title": "[X] yıldır öğrencilerin özgüvenle konuşmasına yardımcı oluyoruz.",
-      "about.milestone.desc": "[Detaylar netleştiğinde buraya kısa bir kilometre taşı zaman çizelgesi veya kuruluş hikayesi ekleyin.]",
+      "about.milestone.title": "11 yıldır öğrencilerin özgüvenle konuşmasına yardımcı oluyoruz.",
+      "about.milestone.desc": "English Master, 2015'ten bu yana Yenimahalle ve Körfez şubelerinde 5000'den fazla öğrenciye eğitim verdi; kadromuzda 30'dan fazla sertifikalı öğretmen bulunuyor.",
       "about.ctaBanner.title": "Gelin, bir dersi kendi gözlerinizle görün.",
 
       "contact.hero.title": "Bize Ulaşın",
