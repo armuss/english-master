@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Yönetim Paneli — English Master</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { background: var(--em-sand); min-height: 100vh; }
+  .admin-wrap { max-width: 1000px; margin: 0 auto; padding: 48px 24px; }
+  .admin-login-card { max-width: 360px; margin: 80px auto; }
+  .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+  .leads-table-wrap { overflow-x: auto; border-radius: 16px; background: var(--em-white); border: 1px solid var(--em-border); }
+  table.leads-table { width: 100%; border-collapse: collapse; }
+  table.leads-table th, table.leads-table td { padding: 12px 16px; border-bottom: 1px solid var(--em-border); text-align: left; font-size: 13px; vertical-align: top; }
+  table.leads-table th { background: var(--em-sand); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--em-text-soft); }
+  table.leads-table tr:last-child td { border-bottom: none; }
+  .admin-empty { text-align: center; color: var(--em-text-faint); padding: 48px 0; }
+  .admin-notice { background: var(--em-white); border: 1px solid var(--em-border); border-radius: 12px; padding: 14px 18px; font-size: 13px; color: var(--em-text-soft); margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+<div id="loginView" class="admin-wrap" style="display:none;">
+  <div class="form-card admin-login-card">
+    <h2 style="margin-bottom:6px;">Yönetim Girişi</h2>
+    <p class="text-soft" style="margin-bottom:18px; font-size:13px;">Devam etmek için şifreyi girin.</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="password">Şifre</label>
+        <input type="password" id="password" name="password" required autofocus>
+      </div>
+      <div id="loginError" style="color:#b3341f; font-size:13px; margin-top:10px; display:none;">Şifre hatalı. Tekrar deneyin.</div>
+      <div id="loginNotConfigured" style="color:#b3341f; font-size:13px; margin-top:10px; display:none;">Yönetim paneli henüz yapılandırılmadı (ADMIN_PASSWORD / ADMIN_SESSION_SECRET eksik).</div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px;">Giriş Yap</button>
+    </form>
+  </div>
+</div>
+
+<div id="panelView" class="admin-wrap" style="display:none;">
+  <div class="admin-header">
+    <h2>Gelen Talepler</h2>
+    <button id="logoutBtn" class="btn btn-sm btn-outline">Çıkış Yap</button>
+  </div>
+  <div id="notConfigured" class="admin-notice" style="display:none;">Veritabanı (Vercel KV) henüz bağlanmadı — talepler burada listelenmiyor, ama e-posta/SMS bildirimleri ayarlandıysa yine de gönderiliyor.</div>
+  <div id="leadsEmpty" class="admin-empty" style="display:none;">Henüz bir talep yok.</div>
+  <div class="leads-table-wrap" id="leadsTableWrap" style="display:none;">
+    <table class="leads-table">
+      <thead>
+        <tr><th>Tarih</th><th>Ad Soyad</th><th>Telefon</th><th>E-posta</th><th>Kurs</th><th>Şube</th><th>Mesaj</th></tr>
+      </thead>
+      <tbody id="leadsBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function () {
+  var loginView = document.getElementById('loginView');
+  var panelView = document.getElementById('panelView');
+  var loginError = document.getElementById('loginError');
+  var loginNotConfigured = document.getElementById('loginNotConfigured');
+
+  function showLogin(state) {
+    loginView.style.display = 'block';
+    panelView.style.display = 'none';
+    loginError.style.display = state === 'invalid' ? 'block' : 'none';
+    loginNotConfigured.style.display = state === 'not_configured' ? 'block' : 'none';
+  }
+
+  function showPanel(data) {
+    loginView.style.display = 'none';
+    panelView.style.display = 'block';
+    document.getElementById('notConfigured').style.display = data.kvConfigured ? 'none' : 'block';
+    var body = document.getElementById('leadsBody');
+    body.innerHTML = '';
+    var hasLeads = data.leads && data.leads.length > 0;
+    document.getElementById('leadsEmpty').style.display = hasLeads ? 'none' : 'block';
+    document.getElementById('leadsTableWrap').style.display = hasLeads ? 'block' : 'none';
+    if (!hasLeads) return;
+    data.leads.forEach(function (lead) {
+      var tr = document.createElement('tr');
+      var date = new Date(lead.createdAt);
+      var dateStr = isNaN(date.getTime()) ? '' : date.toLocaleString('tr-TR');
+      [dateStr, lead.name, lead.phone, lead.email, lead.course, lead.branch, lead.message].forEach(function (val) {
+        var td = document.createElement('td');
+        td.textContent = val || '-';
+        tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+
+  function loadLeads() {
+    fetch('/api/leads').then(function (r) {
+      if (r.status === 401) { showLogin(false); return null; }
+      if (r.status === 500) { return r.json().then(function (d) { showLogin(d.error === 'not_configured' ? 'not_configured' : 'invalid'); return null; }); }
+      return r.json();
+    }).then(function (data) {
+      if (data) showPanel(data);
+    }).catch(function () { showLogin(false); });
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var password = document.getElementById('password').value;
+    fetch('/api/admin-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: password }),
+    }).then(function (r) {
+      if (r.status === 500) { showLogin('not_configured'); return; }
+      if (!r.ok) { showLogin('invalid'); return; }
+      loadLeads();
+    }).catch(function () { showLogin('invalid'); });
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    fetch('/api/admin-logout', { method: 'POST' }).then(function () { showLogin(false); });
+  });
+
+  loadLeads();
+})();
+</script>
+
+</body>
+</html>

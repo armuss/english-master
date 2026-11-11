@@ -57,15 +57,43 @@ document.addEventListener('DOMContentLoaded', function () {
     leadForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var success = document.getElementById('formSuccess');
-      if (success) {
-        success.classList.add('visible');
-      }
-      leadForm.reset();
-      if (consentCheckbox) {
-        consentCheckbox.disabled = true;
-        if (consentHint) consentHint.style.display = '';
-        if (consentRow) consentRow.classList.remove('consent-ready');
-      }
+      var error = document.getElementById('formError');
+      var submitBtn = leadForm.querySelector('button[type="submit"]');
+      if (success) success.classList.remove('visible');
+      if (error) error.classList.remove('visible');
+      if (submitBtn) submitBtn.disabled = true;
+
+      var payload = {
+        name: leadForm.name.value,
+        phone: leadForm.phone.value,
+        email: leadForm.email.value,
+        course: leadForm.course ? leadForm.course.value : '',
+        branch: leadForm.branch ? leadForm.branch.value : '',
+        message: leadForm.message ? leadForm.message.value : '',
+        consent: !!(consentCheckbox && consentCheckbox.checked),
+      };
+
+      fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('submit failed');
+          if (success) success.classList.add('visible');
+          leadForm.reset();
+          if (consentCheckbox) {
+            consentCheckbox.disabled = true;
+            if (consentHint) consentHint.style.display = '';
+            if (consentRow) consentRow.classList.remove('consent-ready');
+          }
+        })
+        .catch(function () {
+          if (error) error.classList.add('visible');
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
 });
