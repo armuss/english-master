@@ -37,6 +37,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var leadForm = document.getElementById('leadForm');
   if (leadForm) {
+    var consentScroll = document.getElementById('consentScroll');
+    var consentCheckbox = document.getElementById('consentCheckbox');
+    var consentRow = document.getElementById('consentRow');
+    var consentHint = document.getElementById('consentHint');
+    if (consentScroll && consentCheckbox) {
+      var unlockConsent = function () {
+        var reachedEnd = consentScroll.scrollTop + consentScroll.clientHeight >= consentScroll.scrollHeight - 4;
+        if (reachedEnd) {
+          consentCheckbox.disabled = false;
+          if (consentHint) consentHint.style.display = 'none';
+          if (consentRow) consentRow.classList.add('consent-ready');
+        }
+      };
+      consentScroll.addEventListener('scroll', unlockConsent);
+      unlockConsent();
+    }
+
     leadForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var success = document.getElementById('formSuccess');
@@ -44,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function () {
         success.classList.add('visible');
       }
       leadForm.reset();
+      if (consentCheckbox) {
+        consentCheckbox.disabled = true;
+        if (consentHint) consentHint.style.display = '';
+        if (consentRow) consentRow.classList.remove('consent-ready');
+      }
     });
   }
 });

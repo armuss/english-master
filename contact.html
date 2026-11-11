@@ -155,8 +155,8 @@
             <label for="branch" data-i18n="contact.form.branchLabel">Branch (optional)</label>
             <select id="branch" name="branch">
               <option data-i18n="contact.form.branchOnline">Online</option>
-              <option data-i18n="contact.form.branchName">[Branch Name]</option>
-              <option data-i18n="contact.form.branchName">[Branch Name]</option>
+              <option data-i18n="contact.branch.yenimahalle">Yenimahalle Branch</option>
+              <option data-i18n="contact.branch.korfez">Körfez Branch (Marina)</option>
             </select>
           </div>
         </div>
@@ -164,12 +164,21 @@
           <label for="message" data-i18n="contact.form.messageLabel">Message (optional)</label>
           <textarea id="message" name="message" rows="3" placeholder="Anything else we should know?" data-i18n-placeholder="contact.form.messagePlaceholder"></textarea>
         </div>
-        <label class="checkbox-row" style="margin-top:16px;">
-          <input type="checkbox" required>
-          <span data-i18n-html="contact.form.consent">I have read and understood the <a class="link-underline" href="#">Personal Data Protection and Processing Information</a>.</span>
+        <div class="consent-box" style="margin-top:16px;">
+          <div class="consent-scroll" id="consentScroll">
+            <p data-i18n="contact.form.consentText.p1">This Personal Data Protection and Processing Information explains how English Master ("the Company") processes the personal data you submit through this form.</p>
+            <p data-i18n="contact.form.consentText.p2">Data collected: your name, phone number, email address, course of interest, branch preference and any message you write.</p>
+            <p data-i18n="contact.form.consentText.p3">Purpose of processing: to contact you about your course and placement test request, to recommend a suitable program and branch, and to keep a record of your enquiry.</p>
+            <p data-i18n="contact.form.consentText.p4">Your data is stored only for as long as needed to respond to your enquiry and is not shared with third parties except service providers who help us contact you (e.g. email and SMS delivery).</p>
+            <p data-i18n="contact.form.consentText.p5">Under Law No. 6698 on the Protection of Personal Data (KVKK), you have the right to learn whether your data is processed, request correction or deletion, and object to processing. To exercise these rights, contact us using the details on this page.</p>
+          </div>
+          <div class="consent-hint" id="consentHint" data-i18n="contact.form.consentHint">Scroll to the end to enable the checkbox below.</div>
+        </div>
+        <label class="checkbox-row" id="consentRow" style="margin-top:12px;">
+          <input type="checkbox" id="consentCheckbox" required disabled>
+          <span data-i18n="contact.form.consent">I have read and understood the Personal Data Protection and Processing Information above.</span>
         </label>
         <button type="submit" class="btn btn-primary btn-block" style="margin-top:8px;" data-i18n="contact.form.submit">Submit</button>
-        <p class="form-note" data-i18n="contact.form.note">This is a demo form — submissions are not sent anywhere yet.</p>
       </form>
     </div>
   </div>
