@@ -21,6 +21,12 @@ module.exports = async function handler(req, res) {
     return;
   }
 
+  const name = String(body.name || '').replace(/\|/g, '').trim().slice(0, 60);
+  if (!name) {
+    res.status(400).json({ error: 'missing_name' });
+    return;
+  }
+
   const given = Buffer.from(String(body.password || ''));
   const expected = Buffer.from(adminPassword);
   const matches = given.length === expected.length && crypto.timingSafeEqual(given, expected);
@@ -29,8 +35,9 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const expiry = String(Date.now() + SESSION_TTL_MS);
-  const cookieValue = utils.sign(expiry, secret);
+  const expiry = Date.now() + SESSION_TTL_MS;
+  const sessionValue = expiry + '|' + encodeURIComponent(name);
+  const cookieValue = utils.sign(sessionValue, secret);
   res.setHeader('Set-Cookie', 'admin_session=' + cookieValue + '; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=' + Math.floor(SESSION_TTL_MS / 1000));
-  res.status(200).json({ ok: true });
+  res.status(200).json({ ok: true, name: name });
 };

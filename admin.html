@@ -28,8 +28,12 @@
     <p class="text-soft" style="margin-bottom:18px; font-size:13px;">Devam etmek için şifreyi girin.</p>
     <form id="loginForm">
       <div class="field">
+        <label for="adminName">Adınız</label>
+        <input type="text" id="adminName" name="adminName" required autocomplete="name">
+      </div>
+      <div class="field" style="margin-top:12px;">
         <label for="password">Şifre</label>
-        <input type="password" id="password" name="password" required autofocus>
+        <input type="password" id="password" name="password" required>
       </div>
       <div id="loginError" style="color:#b3341f; font-size:13px; margin-top:10px; display:none;">Şifre hatalı. Tekrar deneyin.</div>
       <div id="loginNotConfigured" style="color:#b3341f; font-size:13px; margin-top:10px; display:none;">Yönetim paneli henüz yapılandırılmadı (ADMIN_PASSWORD / ADMIN_SESSION_SECRET eksik).</div>
@@ -40,7 +44,7 @@
 
 <div id="panelView" class="admin-wrap" style="display:none;">
   <div class="admin-header">
-    <h2>Gelen Talepler</h2>
+    <h2 id="panelTitle">Gelen Talepler</h2>
     <button id="logoutBtn" class="btn btn-sm btn-outline">Çıkış Yap</button>
   </div>
   <div id="notConfigured" class="admin-notice" style="display:none;">Veritabanı (Vercel KV) henüz bağlanmadı — talepler burada listelenmiyor, ama e-posta/SMS bildirimleri ayarlandıysa yine de gönderiliyor.</div>
@@ -72,6 +76,8 @@
   function showPanel(data) {
     loginView.style.display = 'none';
     panelView.style.display = 'block';
+    var title = document.getElementById('panelTitle');
+    title.textContent = data.name ? 'Gelen Talepler — Hoş geldin, ' + data.name : 'Gelen Talepler';
     document.getElementById('notConfigured').style.display = data.kvConfigured ? 'none' : 'block';
     var body = document.getElementById('leadsBody');
     body.innerHTML = '';
@@ -104,17 +110,24 @@
 
   document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
+    var name = document.getElementById('adminName').value.trim();
     var password = document.getElementById('password').value;
     fetch('/api/admin-login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: password }),
+      body: JSON.stringify({ name: name, password: password }),
     }).then(function (r) {
       if (r.status === 500) { showLogin('not_configured'); return; }
       if (!r.ok) { showLogin('invalid'); return; }
+      try { localStorage.setItem('em_admin_name', name); } catch (e) {}
       loadLeads();
     }).catch(function () { showLogin('invalid'); });
   });
+
+  try {
+    var savedName = localStorage.getItem('em_admin_name');
+    if (savedName) document.getElementById('adminName').value = savedName;
+  } catch (e) {}
 
   document.getElementById('logoutBtn').addEventListener('click', function () {
     fetch('/api/admin-logout', { method: 'POST' }).then(function () { showLogin(false); });
