@@ -19,7 +19,7 @@ module.exports = async function handler(req, res) {
   }
 
   if (!utils.kvConfigured()) {
-    res.status(200).json({ ok: true, kvConfigured: false, leads: [], name: session.name });
+    res.status(200).json({ ok: true, kvConfigured: false, leads: [], name: session.name, role: session.role, username: session.username });
     return;
   }
 
@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
         lead.statusUpdatedBy = st ? st.updatedBy : null;
         return lead;
       });
-    res.status(200).json({ ok: true, kvConfigured: true, leads: leads, name: session.name });
+    res.status(200).json({ ok: true, kvConfigured: true, leads: leads, name: session.name, role: session.role, username: session.username });
   } catch (e) {
     console.error('leads: KV read failed:', e.message);
     res.status(500).json({ error: 'kv_read_failed' });

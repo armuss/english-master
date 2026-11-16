@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/style.css">
 <style>
   body { background: var(--em-sand); min-height: 100vh; }
+  [hidden] { display: none !important; }
   .admin-login-wrap { padding: 48px 24px; }
   .admin-login-card { max-width: 360px; margin: 80px auto; }
   .login-error { color: #b3341f; font-size: 13px; margin-top: 10px; }
@@ -69,6 +70,26 @@
   .status-err { font-size: 12px; color: #b3341f; }
   a.btn-sm.btn-outline { text-decoration: none; }
 
+  .admin-tabs { display: flex; gap: 6px; }
+  .admin-tab { font-family: inherit; font-size: 13px; font-weight: 800; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--em-border); background: var(--em-white); color: var(--em-text-soft); cursor: pointer; }
+  .admin-tab[aria-selected="true"] { background: var(--em-black); color: var(--em-white); border-color: var(--em-black); }
+  .role-badge { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: var(--em-sand); color: var(--em-text-soft); }
+  .role-badge.owner { background: var(--em-yellow); color: var(--em-black); }
+
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+  .team-card { background: var(--em-white); border: 1px solid var(--em-border); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; text-align: left; font-family: inherit; color: inherit; cursor: pointer; }
+  .team-card[aria-pressed="true"] { border-color: var(--em-black); box-shadow: inset 0 0 0 1px var(--em-black); }
+  .team-card .tc-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .team-card .tc-name { font-weight: 800; font-size: 15px; }
+  .team-card .tc-user { font-size: 12px; color: var(--em-text-faint); }
+  .team-card .tc-stat { font-size: 12px; color: var(--em-text-soft); display: flex; justify-content: space-between; gap: 8px; }
+  .team-card .tc-stat b { color: var(--em-text); font-variant-numeric: tabular-nums; }
+  .team-card .tc-never { color: #8a2a17; }
+  table.log td.act { color: var(--em-text); }
+  table.log .warn { color: #8a2a17; font-weight: 700; }
+  .arrow { color: var(--em-text-faint); margin: 0 4px; }
+  .person-select { font-family: inherit; font-weight: 700; font-size: 13px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--em-border); background: var(--em-white); width: auto; }
+
   @media (max-width: 760px) {
     .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .admin-main { padding: 16px; }
@@ -82,18 +103,19 @@
 <div id="loginView" class="admin-login-wrap" hidden>
   <div class="form-card admin-login-card">
     <h2 style="margin-bottom:6px;">Yönetim Girişi</h2>
-    <p class="text-soft" style="margin-bottom:18px; font-size:13px;">Devam etmek için adınızı ve şifreyi girin.</p>
+    <p class="text-soft" style="margin-bottom:18px; font-size:13px;">Devam etmek için kullanıcı adınızı ve şifrenizi girin.</p>
     <form id="loginForm">
       <div class="field">
-        <label for="adminName">Adınız</label>
-        <input type="text" id="adminName" name="adminName" required autocomplete="name">
+        <label for="username">Kullanıcı adı</label>
+        <input type="text" id="username" name="username" required autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
       </div>
       <div class="field" style="margin-top:12px;">
         <label for="password">Şifre</label>
         <input type="password" id="password" name="password" required autocomplete="current-password">
       </div>
-      <div id="loginError" class="login-error" hidden>Şifre hatalı. Tekrar deneyin.</div>
-      <div id="loginNotConfigured" class="login-error" hidden>Yönetim paneli henüz yapılandırılmadı (ADMIN_PASSWORD / ADMIN_SESSION_SECRET eksik).</div>
+      <div id="loginError" class="login-error" hidden>Kullanıcı adı veya şifre hatalı. Tekrar deneyin.</div>
+      <div id="loginLocked" class="login-error" hidden>Çok fazla hatalı deneme yapıldı. 15 dakika sonra tekrar deneyin.</div>
+      <div id="loginNotConfigured" class="login-error" hidden>Yönetim paneli henüz yapılandırılmadı (Vercel'de ADMIN_ACCOUNTS / ADMIN_SESSION_SECRET eksik).</div>
       <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px;">Giriş Yap</button>
     </form>
   </div>
@@ -104,16 +126,21 @@
     <div class="admin-top-inner">
       <div class="admin-brand">
         <img src="images/logo.png" alt="English Master">
-        <span>Gelen Talepler</span>
+        <div class="admin-tabs" id="adminTabs" role="tablist" hidden>
+          <button class="admin-tab" type="button" role="tab" data-view="leads" aria-selected="true">Gelen Talepler</button>
+          <button class="admin-tab" type="button" role="tab" data-view="activity" aria-selected="false">Ekip Hareketleri</button>
+        </div>
+        <span id="brandTitle">Gelen Talepler</span>
       </div>
       <div class="admin-who">
         <span id="welcome"></span>
+        <span id="roleBadge" class="role-badge" hidden></span>
         <button id="logoutBtn" class="btn btn-sm btn-outline" type="button">Çıkış Yap</button>
       </div>
     </div>
   </header>
 
-  <main class="admin-main">
+  <main class="admin-main" id="leadsView">
     <div id="notConfigured" class="admin-notice" hidden>Veritabanı (Vercel KV) henüz bağlanmadı. Talepler burada listelenmiyor; e-posta ve SMS bildirimleri ayarlandıysa yine de gönderiliyor.</div>
     <div id="loadError" class="admin-notice error" hidden>Talepler yüklenemedi. Sayfayı yenileyin; sorun devam ederse Vercel loglarını kontrol edin.</div>
 
@@ -140,6 +167,26 @@
       </table>
     </div>
   </main>
+
+  <main class="admin-main" id="activityView" hidden>
+    <div id="activityError" class="admin-notice error" hidden>Hareket kayıtları yüklenemedi. Sayfayı yenileyin.</div>
+    <p class="text-soft" style="font-size:13px;">Ekipteki herkesin girişleri, açtığı talepler ve yaptığı durum değişiklikleri. Bir kişiye tıklayınca yalnızca onun hareketleri listelenir.</p>
+    <div class="team-grid" id="teamGrid"></div>
+    <div class="toolbar">
+      <select id="logPerson" class="person-select" aria-label="Kişiye göre filtrele"></select>
+      <div class="chips" id="logChips" role="group" aria-label="İşlem türüne göre filtrele"></div>
+    </div>
+    <div class="refresh-row">
+      <button id="activityRefresh" class="btn btn-sm btn-outline" type="button">Yenile</button>
+      <span id="activityLoadedAt"></span>
+    </div>
+    <div class="table-wrap">
+      <table class="leads log">
+        <thead><tr><th>Tarih</th><th>Kişi</th><th>İşlem</th><th>Cihaz</th><th>IP</th></tr></thead>
+        <tbody id="logRows"></tbody>
+      </table>
+    </div>
+  </main>
 </div>
 
 <script>
@@ -156,6 +203,9 @@
   var leads = [];
   var filter = 'all';
   var expanded = {};
+  var viewed = {};
+  var me = { role: 'admin' };
+  var currentView = 'leads';
 
   var loginView = document.getElementById('loginView');
   var panelView = document.getElementById('panelView');
@@ -198,6 +248,7 @@
     loginView.hidden = false;
     panelView.hidden = true;
     document.getElementById('loginError').hidden = state !== 'invalid';
+    document.getElementById('loginLocked').hidden = state !== 'locked';
     document.getElementById('loginNotConfigured').hidden = state !== 'not_configured';
   }
 
@@ -319,7 +370,14 @@
       var tdS = el('td');
       tdS.appendChild(pill(l.status));
       tr.appendChild(tdS);
-      function toggle() { expanded[l.id] = !expanded[l.id]; renderRows(); }
+      function toggle() {
+        expanded[l.id] = !expanded[l.id];
+        if (expanded[l.id] && !viewed[l.id]) {
+          viewed[l.id] = true;
+          fetch('/api/admin-activity', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ leadId: l.id, leadName: l.name }) }).catch(function () {});
+        }
+        renderRows();
+      }
       tr.addEventListener('click', toggle);
       tr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
       rows.appendChild(tr);
@@ -332,7 +390,15 @@
   function showPanel(data) {
     loginView.hidden = true;
     panelView.hidden = false;
+    me = { name: data.name, role: data.role, username: data.username };
     document.getElementById('welcome').textContent = data.name ? 'Hoş geldin, ' + data.name : '';
+    var badge = document.getElementById('roleBadge');
+    badge.hidden = !data.role;
+    badge.textContent = data.role === 'owner' ? 'Sahip' : 'Yönetici';
+    badge.className = 'role-badge' + (data.role === 'owner' ? ' owner' : '');
+    document.getElementById('adminTabs').hidden = data.role !== 'owner';
+    document.getElementById('brandTitle').hidden = data.role === 'owner';
+    if (data.role !== 'owner' && currentView !== 'leads') switchView('leads');
     document.getElementById('notConfigured').hidden = !!data.kvConfigured;
     document.getElementById('loadError').hidden = true;
     leads = (data.leads || []).map(function (l) { if (!l.status) l.status = 'new'; return l; });
@@ -362,30 +428,184 @@
 
   document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    var name = document.getElementById('adminName').value.trim();
+    var username = document.getElementById('username').value.trim().toLowerCase();
     var password = document.getElementById('password').value;
     fetch('/api/admin-login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, password: password })
+      body: JSON.stringify({ username: username, password: password })
     }).then(function (r) {
       if (r.status === 500) { showLogin('not_configured'); return; }
+      if (r.status === 429) { showLogin('locked'); return; }
       if (!r.ok) { showLogin('invalid'); return; }
-      try { localStorage.setItem('em_admin_name', name); } catch (err) {}
+      try { localStorage.setItem('em_admin_user', username); } catch (err) {}
+      viewed = {};
       document.getElementById('password').value = '';
       loadLeads();
     }).catch(function () { showLogin('invalid'); });
   });
 
   try {
-    var savedName = localStorage.getItem('em_admin_name');
-    if (savedName) document.getElementById('adminName').value = savedName;
+    var savedUser = localStorage.getItem('em_admin_user');
+    if (savedUser) document.getElementById('username').value = savedUser;
   } catch (e) {}
+
+  // ---------- Team activity (owners only) ----------
+  var ACTIONS = {
+    login: 'Giriş', logout: 'Çıkış', status_change: 'Durum değişikliği', lead_view: 'Talep görüntüleme', login_failed: 'Başarısız giriş'
+  };
+  var LOG_FILTERS = [
+    { key: 'all', label: 'Tümü', match: function () { return true; } },
+    { key: 'sessions', label: 'Giriş / çıkış', match: function (e) { return e.action === 'login' || e.action === 'logout'; } },
+    { key: 'changes', label: 'Değişiklikler', match: function (e) { return e.action === 'status_change'; } },
+    { key: 'views', label: 'Görüntülemeler', match: function (e) { return e.action === 'lead_view'; } },
+    { key: 'failed', label: 'Başarısız girişler', match: function (e) { return e.action === 'login_failed'; } }
+  ];
+  var activity = { accounts: [], log: [] };
+  var logFilter = 'all';
+  var logPerson = 'all';
+
+  function device(ua) {
+    ua = ua || '';
+    var os = /iPhone/.test(ua) ? 'iPhone' : /iPad/.test(ua) ? 'iPad' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Macintosh|Mac OS X/.test(ua) ? 'Mac' : /Linux/.test(ua) ? 'Linux' : '';
+    var br = /SamsungBrowser/.test(ua) ? 'Samsung' : /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : '';
+    return [os, br].filter(Boolean).join(' · ') || '—';
+  }
+
+  function describe(e) {
+    var span = el('span');
+    if (e.action === 'status_change') {
+      span.appendChild(el('strong', null, e.leadName || 'Talep'));
+      span.appendChild(document.createTextNode(' durumu: '));
+      span.appendChild(pill(e.from || 'new'));
+      span.appendChild(el('span', { 'class': 'arrow' }, '→'));
+      span.appendChild(pill(e.to));
+    } else if (e.action === 'lead_view') {
+      span.appendChild(el('strong', null, e.leadName || 'Bir talep'));
+      span.appendChild(document.createTextNode(' talebini açtı'));
+    } else if (e.action === 'login') {
+      span.textContent = 'Panele giriş yaptı';
+    } else if (e.action === 'logout') {
+      span.textContent = 'Çıkış yaptı';
+    } else if (e.action === 'login_failed') {
+      span.className = 'warn';
+      span.textContent = e.user ? 'Hatalı şifre ile giriş denemesi' : 'Bilinmeyen kullanıcı adıyla deneme: "' + (e.attempted || '') + '"';
+    } else {
+      span.textContent = ACTIONS[e.action] || e.action;
+    }
+    return span;
+  }
+
+  function renderTeam() {
+    var grid = document.getElementById('teamGrid');
+    grid.innerHTML = '';
+    var weekAgo = Date.now() - 7 * 86400000;
+    activity.accounts.forEach(function (a) {
+      var actions = activity.log.filter(function (e) {
+        return e.user === a.username && (e.action === 'status_change' || e.action === 'lead_view') && new Date(e.at).getTime() >= weekAgo;
+      }).length;
+      var card = el('button', { 'class': 'team-card', type: 'button', 'aria-pressed': logPerson === a.username ? 'true' : 'false' });
+      var head = el('div', { 'class': 'tc-head' });
+      head.appendChild(el('span', { 'class': 'tc-name' }, a.name));
+      head.appendChild(el('span', { 'class': 'role-badge' + (a.role === 'owner' ? ' owner' : '') }, a.role === 'owner' ? 'Sahip' : 'Yönetici'));
+      card.appendChild(head);
+      card.appendChild(el('span', { 'class': 'tc-user' }, '@' + a.username));
+      var s1 = el('span', { 'class': 'tc-stat' });
+      s1.appendChild(el('span', null, 'Son giriş'));
+      s1.appendChild(a.lastLogin ? el('b', null, fmtDate(a.lastLogin)) : el('b', { 'class': 'tc-never' }, 'Hiç girmedi'));
+      card.appendChild(s1);
+      var s2 = el('span', { 'class': 'tc-stat' });
+      s2.appendChild(el('span', null, 'Toplam giriş'));
+      s2.appendChild(el('b', null, String(a.loginCount)));
+      card.appendChild(s2);
+      var s3 = el('span', { 'class': 'tc-stat' });
+      s3.appendChild(el('span', null, 'Son 7 gün işlem'));
+      s3.appendChild(el('b', null, String(actions)));
+      card.appendChild(s3);
+      card.addEventListener('click', function () {
+        logPerson = logPerson === a.username ? 'all' : a.username;
+        renderActivity();
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function renderLog() {
+    var sel = document.getElementById('logPerson');
+    sel.innerHTML = '';
+    sel.appendChild(el('option', { value: 'all' }, 'Herkes'));
+    activity.accounts.forEach(function (a) { sel.appendChild(el('option', { value: a.username }, a.name)); });
+    sel.value = logPerson;
+
+    var chips = document.getElementById('logChips');
+    chips.innerHTML = '';
+    LOG_FILTERS.forEach(function (f) {
+      var b = el('button', { 'class': 'chip', type: 'button', 'aria-pressed': f.key === logFilter ? 'true' : 'false' }, f.label);
+      b.addEventListener('click', function () { logFilter = f.key; renderLog(); });
+      chips.appendChild(b);
+    });
+
+    var match = LOG_FILTERS.filter(function (f) { return f.key === logFilter; })[0].match;
+    var shown = activity.log.filter(function (e) {
+      if (logPerson !== 'all' && e.user !== logPerson) return false;
+      return match(e);
+    });
+    var body = document.getElementById('logRows');
+    body.innerHTML = '';
+    if (!shown.length) {
+      var tr0 = el('tr');
+      tr0.appendChild(el('td', { colspan: '5', 'class': 'empty-cell' }, activity.log.length ? 'Bu filtreyle eşleşen kayıt yok.' : 'Henüz kayıt yok. Ekip panele girdikçe hareketler burada görünür.'));
+      body.appendChild(tr0);
+      return;
+    }
+    shown.slice(0, 400).forEach(function (e) {
+      var tr = el('tr');
+      tr.appendChild(el('td', { 'class': 'muted tabnum' }, fmtDate(e.at)));
+      tr.appendChild(el('td', { 'class': 'name-cell' }, e.name || (e.user ? '@' + e.user : '—')));
+      var td = el('td', { 'class': 'act' });
+      td.appendChild(describe(e));
+      tr.appendChild(td);
+      tr.appendChild(el('td', { 'class': 'muted' }, device(e.ua)));
+      tr.appendChild(el('td', { 'class': 'muted tabnum' }, e.ip || '—'));
+      body.appendChild(tr);
+    });
+  }
+
+  function renderActivity() { renderTeam(); renderLog(); }
+
+  function loadActivity() {
+    fetch('/api/admin-activity').then(function (r) {
+      if (r.status === 401) { showLogin(false); return null; }
+      if (r.status === 403) { switchView('leads'); return null; }
+      if (!r.ok) throw new Error('load failed');
+      return r.json();
+    }).then(function (data) {
+      if (!data) return;
+      document.getElementById('activityError').hidden = true;
+      activity = { accounts: data.accounts || [], log: data.log || [] };
+      document.getElementById('activityLoadedAt').textContent = 'Son yenileme: ' + new Date().toLocaleTimeString('tr-TR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+      renderActivity();
+    }).catch(function () { document.getElementById('activityError').hidden = false; });
+  }
+
+  function switchView(view) {
+    currentView = view;
+    document.getElementById('leadsView').hidden = view !== 'leads';
+    document.getElementById('activityView').hidden = view !== 'activity';
+    document.querySelectorAll('.admin-tab').forEach(function (t) { t.setAttribute('aria-selected', t.getAttribute('data-view') === view ? 'true' : 'false'); });
+    if (view === 'activity') loadActivity();
+  }
+
+  document.querySelectorAll('.admin-tab').forEach(function (t) {
+    t.addEventListener('click', function () { switchView(t.getAttribute('data-view')); });
+  });
+  document.getElementById('logPerson').addEventListener('change', function (e) { logPerson = e.target.value; renderActivity(); });
+  document.getElementById('activityRefresh').addEventListener('click', loadActivity);
 
   search.addEventListener('input', renderRows);
   document.getElementById('refreshBtn').addEventListener('click', loadLeads);
   document.getElementById('logoutBtn').addEventListener('click', function () {
-    fetch('/api/admin-logout', { method: 'POST' }).then(function () { showLogin(false); });
+    fetch('/api/admin-logout', { method: 'POST' }).then(function () { switchView('leads'); showLogin(false); });
   });
 
   loadLeads();
