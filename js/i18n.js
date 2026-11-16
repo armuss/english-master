@@ -19,9 +19,8 @@
       "footer.courseExam": "IELTS / TOEFL / YDS",
       "footer.courseBusiness": "Business English",
       "footer.courseKids": "Junior",
-      "footer.phone": "[Phone Number]",
       "footer.email": "[Email Address]",
-      "footer.address": "[Address, City]",
+      "footer.address": "Atakum / Samsun",
       "footer.rights": "All rights reserved.",
 
       "home.hero.kicker": "Group & 1-to-1 classes",
@@ -129,7 +128,7 @@
 
       "contact.hero.title": "Get in touch",
       "contact.hero.desc": "Ask a question, book a free trial, or find the branch closest to you.",
-      "contact.pill.whatsapp": "Chat on WhatsApp — [WhatsApp Number]",
+      "contact.pill.whatsapp": "Chat on WhatsApp",
       "contact.form.kicker": "For detailed information",
       "contact.form.title": "Fill out the form — we'll get back to you.",
       "contact.form.desc": "Tell us a bit about your goals and current level, and an advisor will follow up with course and schedule options.",
@@ -159,7 +158,6 @@
       "contact.form.submit": "Submit",
       "contact.branches.kicker": "Find a branch",
       "contact.branches.title": "Our locations",
-      "contact.branch.address": "[Address line, City]",
       "contact.branch.yenimahalle": "Yenimahalle Branch",
       "contact.branch.korfez": "Körfez Branch (Marina)",
 
@@ -350,9 +348,8 @@
       "footer.courseExam": "IELTS / TOEFL / YDS",
       "footer.courseBusiness": "İş İngilizcesi",
       "footer.courseKids": "Junior",
-      "footer.phone": "[Telefon Numarası]",
       "footer.email": "[E-posta Adresi]",
-      "footer.address": "[Adres, Şehir]",
+      "footer.address": "Atakum / Samsun",
       "footer.rights": "Tüm hakları saklıdır.",
 
       "home.hero.kicker": "Grup ve Birebir Dersler",
@@ -460,7 +457,7 @@
 
       "contact.hero.title": "Bize Ulaşın",
       "contact.hero.desc": "Soru sorun, ücretsiz deneme dersi alın ya da size en yakın şubeyi bulun.",
-      "contact.pill.whatsapp": "WhatsApp'tan Yazın — [WhatsApp Numarası]",
+      "contact.pill.whatsapp": "WhatsApp'tan Yazın",
       "contact.form.kicker": "Detaylı bilgi için",
       "contact.form.title": "Formu doldurun — size geri dönelim.",
       "contact.form.desc": "Hedefleriniz ve mevcut seviyeniz hakkında bize biraz bilgi verin, bir danışman kurs ve program seçenekleriyle sizinle iletişime geçsin.",
@@ -490,7 +487,6 @@
       "contact.form.submit": "Gönder",
       "contact.branches.kicker": "Şube Bul",
       "contact.branches.title": "Şubelerimiz",
-      "contact.branch.address": "[Adres satırı, Şehir]",
       "contact.branch.yenimahalle": "Yenimahalle Şube",
       "contact.branch.korfez": "Körfez Şube (Marina)",
 
