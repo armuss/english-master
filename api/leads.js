@@ -25,11 +25,19 @@ module.exports = async function handler(req, res) {
 
   try {
     const raw = await utils.kvCommand(['lrange', 'leads', '0', '199']);
+    const statuses = await utils.getLeadStatuses();
     const leads = (raw || [])
       .map(function (s) {
         try { return JSON.parse(s); } catch (e) { return null; }
       })
-      .filter(Boolean);
+      .filter(Boolean)
+      .map(function (lead) {
+        const st = statuses[lead.id];
+        lead.status = st && utils.LEAD_STATUSES.indexOf(st.status) > -1 ? st.status : 'new';
+        lead.statusUpdatedAt = st ? st.updatedAt : null;
+        lead.statusUpdatedBy = st ? st.updatedBy : null;
+        return lead;
+      });
     res.status(200).json({ ok: true, kvConfigured: true, leads: leads, name: session.name });
   } catch (e) {
     console.error('leads: KV read failed:', e.message);

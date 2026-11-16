@@ -8,24 +8,78 @@
 <link rel="stylesheet" href="css/style.css">
 <style>
   body { background: var(--em-sand); min-height: 100vh; }
-  .admin-wrap { max-width: 1000px; margin: 0 auto; padding: 48px 24px; }
+  .admin-login-wrap { padding: 48px 24px; }
   .admin-login-card { max-width: 360px; margin: 80px auto; }
-  .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
-  .leads-table-wrap { overflow-x: auto; border-radius: 16px; background: var(--em-white); border: 1px solid var(--em-border); }
-  table.leads-table { width: 100%; border-collapse: collapse; }
-  table.leads-table th, table.leads-table td { padding: 12px 16px; border-bottom: 1px solid var(--em-border); text-align: left; font-size: 13px; vertical-align: top; }
-  table.leads-table th { background: var(--em-sand); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--em-text-soft); }
-  table.leads-table tr:last-child td { border-bottom: none; }
-  .admin-empty { text-align: center; color: var(--em-text-faint); padding: 48px 0; }
-  .admin-notice { background: var(--em-white); border: 1px solid var(--em-border); border-radius: 12px; padding: 14px 18px; font-size: 13px; color: var(--em-text-soft); margin-bottom: 20px; }
+  .login-error { color: #b3341f; font-size: 13px; margin-top: 10px; }
+
+  .admin-top { background: var(--em-white); border-bottom: 1px solid var(--em-border); }
+  .admin-top-inner { max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .admin-brand { display: flex; align-items: center; gap: 14px; }
+  .admin-brand img { height: 34px; width: auto; }
+  .admin-brand span { font-weight: 800; font-size: 16px; }
+  .admin-who { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--em-text-soft); }
+
+  .admin-main { max-width: 1180px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  .admin-notice { background: var(--em-white); border: 1px solid var(--em-border); border-radius: 12px; padding: 14px 18px; font-size: 13px; color: var(--em-text-soft); }
+  .admin-notice.error { border-color: #e9b7ad; color: #8a2a17; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .kpi { background: var(--em-white); border: 1px solid var(--em-border); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+  .kpi-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--em-text-faint); }
+  .kpi-num { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 28px; font-variant-numeric: tabular-nums; }
+  .kpi-num.hot { color: #8a6400; }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .toolbar .search { flex: 1 1 240px; min-width: 0; font-size: 13px; padding: 10px 14px; border-radius: 10px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font-family: inherit; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--em-border); background: var(--em-white); color: var(--em-text-soft); cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--em-black); color: var(--em-white); border-color: var(--em-black); }
+  .refresh-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--em-text-faint); }
+
+  .table-wrap { overflow-x: auto; background: var(--em-white); border: 1px solid var(--em-border); border-radius: 14px; }
+  table.leads { width: 100%; border-collapse: collapse; min-width: 760px; }
+  table.leads th, table.leads td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--em-border); vertical-align: middle; font-size: 13px; }
+  table.leads th { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--em-text-faint); background: #faf8f1; }
+  table.leads tbody tr.lead { cursor: pointer; }
+  table.leads tbody tr.lead:hover td { background: #faf8f1; }
+  table.leads tbody tr.lead:focus-visible { outline: 2px solid var(--em-yellow); outline-offset: -2px; }
+  tr.detail td { background: #faf8f1; }
+  .name-cell { font-weight: 700; }
+  .muted { color: var(--em-text-faint); }
+  .tabnum { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .empty-cell { text-align: center; color: var(--em-text-faint); padding: 36px 16px !important; }
+
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+  .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .st-new { background: #fff1c2; color: #6b4d00; }
+  .st-called { background: #dce9ff; color: #1d4ed8; }
+  .st-placement { background: #ebe3ff; color: #5b3fc4; }
+  .st-enrolled { background: #d9f2e1; color: #16743c; }
+  .st-declined { background: #eceae4; color: #6b675d; }
+
+  .detail-grid { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 10px 16px; align-items: center; color: var(--em-text-soft); }
+  .detail-grid dt { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--em-text-faint); }
+  .detail-grid dd { margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--em-text); }
+  .detail-msg { white-space: pre-wrap; }
+  .status-select { font-family: inherit; font-weight: 700; font-size: 13px; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--em-border); background: var(--em-white); width: auto; }
+  .status-meta { font-size: 12px; color: var(--em-text-faint); }
+  .status-err { font-size: 12px; color: #b3341f; }
+  a.btn-sm.btn-outline { text-decoration: none; }
+
+  @media (max-width: 760px) {
+    .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .admin-main { padding: 16px; }
+    .detail-grid { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+    .detail-grid dd { margin-bottom: 8px; }
+  }
 </style>
 </head>
 <body>
 
-<div id="loginView" class="admin-wrap" style="display:none;">
+<div id="loginView" class="admin-login-wrap" hidden>
   <div class="form-card admin-login-card">
     <h2 style="margin-bottom:6px;">Yönetim Girişi</h2>
-    <p class="text-soft" style="margin-bottom:18px; font-size:13px;">Devam etmek için şifreyi girin.</p>
+    <p class="text-soft" style="margin-bottom:18px; font-size:13px;">Devam etmek için adınızı ve şifreyi girin.</p>
     <form id="loginForm">
       <div class="field">
         <label for="adminName">Adınız</label>
@@ -33,79 +87,274 @@
       </div>
       <div class="field" style="margin-top:12px;">
         <label for="password">Şifre</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required autocomplete="current-password">
       </div>
-      <div id="loginError" style="color:#b3341f; font-size:13px; margin-top:10px; display:none;">Şifre hatalı. Tekrar deneyin.</div>
-      <div id="loginNotConfigured" style="color:#b3341f; font-size:13px; margin-top:10px; display:none;">Yönetim paneli henüz yapılandırılmadı (ADMIN_PASSWORD / ADMIN_SESSION_SECRET eksik).</div>
+      <div id="loginError" class="login-error" hidden>Şifre hatalı. Tekrar deneyin.</div>
+      <div id="loginNotConfigured" class="login-error" hidden>Yönetim paneli henüz yapılandırılmadı (ADMIN_PASSWORD / ADMIN_SESSION_SECRET eksik).</div>
       <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px;">Giriş Yap</button>
     </form>
   </div>
 </div>
 
-<div id="panelView" class="admin-wrap" style="display:none;">
-  <div class="admin-header">
-    <h2 id="panelTitle">Gelen Talepler</h2>
-    <button id="logoutBtn" class="btn btn-sm btn-outline">Çıkış Yap</button>
-  </div>
-  <div id="notConfigured" class="admin-notice" style="display:none;">Veritabanı (Vercel KV) henüz bağlanmadı — talepler burada listelenmiyor, ama e-posta/SMS bildirimleri ayarlandıysa yine de gönderiliyor.</div>
-  <div id="leadsEmpty" class="admin-empty" style="display:none;">Henüz bir talep yok.</div>
-  <div class="leads-table-wrap" id="leadsTableWrap" style="display:none;">
-    <table class="leads-table">
-      <thead>
-        <tr><th>Tarih</th><th>Ad Soyad</th><th>Telefon</th><th>E-posta</th><th>Kurs</th><th>Şube</th><th>Mesaj</th></tr>
-      </thead>
-      <tbody id="leadsBody"></tbody>
-    </table>
-  </div>
+<div id="panelView" hidden>
+  <header class="admin-top">
+    <div class="admin-top-inner">
+      <div class="admin-brand">
+        <img src="images/logo.png" alt="English Master">
+        <span>Gelen Talepler</span>
+      </div>
+      <div class="admin-who">
+        <span id="welcome"></span>
+        <button id="logoutBtn" class="btn btn-sm btn-outline" type="button">Çıkış Yap</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div id="notConfigured" class="admin-notice" hidden>Veritabanı (Vercel KV) henüz bağlanmadı. Talepler burada listelenmiyor; e-posta ve SMS bildirimleri ayarlandıysa yine de gönderiliyor.</div>
+    <div id="loadError" class="admin-notice error" hidden>Talepler yüklenemedi. Sayfayı yenileyin; sorun devam ederse Vercel loglarını kontrol edin.</div>
+
+    <div class="kpis">
+      <div class="kpi"><span class="kpi-label">Bugün</span><span class="kpi-num" id="statToday">0</span></div>
+      <div class="kpi"><span class="kpi-label">Son 7 gün</span><span class="kpi-num" id="statWeek">0</span></div>
+      <div class="kpi"><span class="kpi-label">Aranmayı bekleyen</span><span class="kpi-num hot" id="statWaiting">0</span></div>
+      <div class="kpi"><span class="kpi-label">Bu ay kayıt olan</span><span class="kpi-num" id="statEnrolled">0</span></div>
+    </div>
+
+    <div class="toolbar">
+      <input class="search" id="search" type="search" placeholder="Ara: isim, telefon veya e-posta" aria-label="Taleplerde ara">
+      <div class="chips" id="chips" role="group" aria-label="Duruma göre filtrele"></div>
+    </div>
+    <div class="refresh-row">
+      <button id="refreshBtn" class="btn btn-sm btn-outline" type="button">Yenile</button>
+      <span id="loadedAt"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="leads">
+        <thead><tr><th>Tarih</th><th>Ad Soyad</th><th>Telefon</th><th>Kurs</th><th>Şube</th><th>Durum</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
 </div>
 
 <script>
 (function () {
+  var STATUSES = [
+    { key: 'new', label: 'Yeni' },
+    { key: 'called', label: 'Arandı' },
+    { key: 'placement', label: 'Seviye testi' },
+    { key: 'enrolled', label: 'Kayıt oldu' },
+    { key: 'declined', label: 'İlgilenmiyor' }
+  ];
+  var TZ = 'Europe/Istanbul';
+
+  var leads = [];
+  var filter = 'all';
+  var expanded = {};
+
   var loginView = document.getElementById('loginView');
   var panelView = document.getElementById('panelView');
-  var loginError = document.getElementById('loginError');
-  var loginNotConfigured = document.getElementById('loginNotConfigured');
+  var rows = document.getElementById('rows');
+  var search = document.getElementById('search');
 
-  function showLogin(state) {
-    loginView.style.display = 'block';
-    panelView.style.display = 'none';
-    loginError.style.display = state === 'invalid' ? 'block' : 'none';
-    loginNotConfigured.style.display = state === 'not_configured' ? 'block' : 'none';
+  function el(tag, attrs, text) {
+    var n = document.createElement(tag);
+    if (attrs) for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function statusLabel(key) {
+    for (var i = 0; i < STATUSES.length; i++) if (STATUSES[i].key === key) return STATUSES[i].label;
+    return STATUSES[0].label;
+  }
+  function pill(key) { return el('span', { 'class': 'pill st-' + key }, statusLabel(key)); }
+
+  function dayKey(d) { return d.toLocaleDateString('en-CA', { timeZone: TZ }); }
+  function monthKey(d) { return dayKey(d).slice(0, 7); }
+  function fmtDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    var now = new Date();
+    var time = d.toLocaleTimeString('tr-TR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+    if (dayKey(d) === dayKey(now)) return 'Bugün ' + time;
+    var y = new Date(now.getTime() - 86400000);
+    if (dayKey(d) === dayKey(y)) return 'Dün ' + time;
+    return d.toLocaleDateString('tr-TR', { timeZone: TZ, day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + time;
+  }
+  function whatsappLink(phone) {
+    var d = String(phone || '').replace(/\D/g, '');
+    if (d.indexOf('00') === 0) d = d.slice(2);
+    if (d.length === 11 && d.charAt(0) === '0') d = '9' + d;
+    else if (d.length === 10 && d.charAt(0) === '5') d = '90' + d;
+    return 'https://wa.me/' + d;
   }
 
-  function showPanel(data) {
-    loginView.style.display = 'none';
-    panelView.style.display = 'block';
-    var title = document.getElementById('panelTitle');
-    title.textContent = data.name ? 'Gelen Talepler — Hoş geldin, ' + data.name : 'Gelen Talepler';
-    document.getElementById('notConfigured').style.display = data.kvConfigured ? 'none' : 'block';
-    var body = document.getElementById('leadsBody');
-    body.innerHTML = '';
-    var hasLeads = data.leads && data.leads.length > 0;
-    document.getElementById('leadsEmpty').style.display = hasLeads ? 'none' : 'block';
-    document.getElementById('leadsTableWrap').style.display = hasLeads ? 'block' : 'none';
-    if (!hasLeads) return;
-    data.leads.forEach(function (lead) {
-      var tr = document.createElement('tr');
-      var date = new Date(lead.createdAt);
-      var dateStr = isNaN(date.getTime()) ? '' : date.toLocaleString('tr-TR');
-      [dateStr, lead.name, lead.phone, lead.email, lead.course, lead.branch, lead.message].forEach(function (val) {
-        var td = document.createElement('td');
-        td.textContent = val || '-';
-        tr.appendChild(td);
-      });
-      body.appendChild(tr);
+  function showLogin(state) {
+    loginView.hidden = false;
+    panelView.hidden = true;
+    document.getElementById('loginError').hidden = state !== 'invalid';
+    document.getElementById('loginNotConfigured').hidden = state !== 'not_configured';
+  }
+
+  function renderStats() {
+    var now = new Date();
+    var today = dayKey(now);
+    var month = monthKey(now);
+    var weekAgo = now.getTime() - 7 * 86400000;
+    var t = 0, w = 0, waiting = 0, enrolled = 0;
+    leads.forEach(function (l) {
+      var d = new Date(l.createdAt);
+      if (!isNaN(d.getTime())) {
+        if (dayKey(d) === today) t++;
+        if (d.getTime() >= weekAgo) w++;
+      }
+      if (l.status === 'new') waiting++;
+      if (l.status === 'enrolled' && l.statusUpdatedAt && monthKey(new Date(l.statusUpdatedAt)) === month) enrolled++;
     });
+    document.getElementById('statToday').textContent = t;
+    document.getElementById('statWeek').textContent = w;
+    document.getElementById('statWaiting').textContent = waiting;
+    document.getElementById('statEnrolled').textContent = enrolled;
+  }
+
+  function renderChips() {
+    var box = document.getElementById('chips');
+    box.innerHTML = '';
+    [{ key: 'all', label: 'Tümü' }].concat(STATUSES).forEach(function (o) {
+      var count = o.key === 'all' ? leads.length : leads.filter(function (l) { return l.status === o.key; }).length;
+      var b = el('button', { 'class': 'chip', type: 'button', 'aria-pressed': o.key === filter ? 'true' : 'false' }, o.label + ' ' + count);
+      b.addEventListener('click', function () { filter = o.key; renderAll(); });
+      box.appendChild(b);
+    });
+  }
+
+  function renderDetail(l) {
+    var tr = el('tr', { 'class': 'detail' });
+    var td = el('td', { colspan: '6' });
+    var dl = el('dl', { 'class': 'detail-grid' });
+    function row(label, nodes) {
+      dl.appendChild(el('dt', null, label));
+      var dd = el('dd');
+      nodes.forEach(function (n) { dd.appendChild(n); });
+      dl.appendChild(dd);
+    }
+    row('Telefon', [
+      el('span', { 'class': 'tabnum' }, l.phone),
+      el('a', { 'class': 'btn btn-sm btn-primary', href: 'tel:' + String(l.phone).replace(/[^\d+]/g, '') }, 'Ara'),
+      el('a', { 'class': 'btn btn-sm btn-outline', href: whatsappLink(l.phone), target: '_blank', rel: 'noopener' }, 'WhatsApp')
+    ]);
+    row('E-posta', [el('a', { 'class': 'link-underline', href: 'mailto:' + l.email }, l.email)]);
+    row('Mesaj', [el('span', { 'class': 'detail-msg' }, l.message || '—')]);
+
+    var sel = el('select', { 'class': 'status-select', 'aria-label': 'Durum' });
+    STATUSES.forEach(function (s) {
+      var o = el('option', { value: s.key }, s.label);
+      if (s.key === l.status) o.selected = true;
+      sel.appendChild(o);
+    });
+    var meta = el('span', { 'class': 'status-meta' });
+    if (l.statusUpdatedBy) meta.textContent = 'Son değişiklik: ' + l.statusUpdatedBy + ', ' + fmtDate(l.statusUpdatedAt);
+    var err = el('span', { 'class': 'status-err' });
+    err.hidden = true;
+    sel.addEventListener('change', function () {
+      var next = sel.value;
+      sel.disabled = true;
+      err.hidden = true;
+      fetch('/api/lead-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: l.id, status: next })
+      }).then(function (r) {
+        if (r.status === 401) { showLogin(false); return null; }
+        if (!r.ok) throw new Error('save failed');
+        return r.json();
+      }).then(function (data) {
+        if (!data) return;
+        l.status = data.entry.status;
+        l.statusUpdatedAt = data.entry.updatedAt;
+        l.statusUpdatedBy = data.entry.updatedBy;
+        renderAll();
+      }).catch(function () {
+        sel.value = l.status;
+        sel.disabled = false;
+        err.textContent = 'Durum kaydedilemedi, tekrar deneyin.';
+        err.hidden = false;
+      });
+    });
+    row('Durum', [sel, meta, err]);
+
+    td.appendChild(dl);
+    tr.appendChild(td);
+    return tr;
+  }
+
+  function renderRows() {
+    var q = search.value.trim().toLocaleLowerCase('tr');
+    rows.innerHTML = '';
+    var shown = leads.filter(function (l) {
+      if (filter !== 'all' && l.status !== filter) return false;
+      if (!q) return true;
+      return (l.name + ' ' + l.phone + ' ' + l.email).toLocaleLowerCase('tr').indexOf(q) > -1;
+    });
+    if (!shown.length) {
+      var msg = leads.length ? 'Bu filtreyle eşleşen talep yok.' : 'Henüz bir talep yok. Sitedeki iletişim formu doldurulduğunda talepler burada görünür.';
+      var tr0 = el('tr');
+      tr0.appendChild(el('td', { colspan: '6', 'class': 'empty-cell' }, msg));
+      rows.appendChild(tr0);
+      return;
+    }
+    shown.forEach(function (l) {
+      var open = !!expanded[l.id];
+      var tr = el('tr', { 'class': 'lead', tabindex: '0', 'aria-expanded': open ? 'true' : 'false' });
+      tr.appendChild(el('td', { 'class': 'muted tabnum' }, fmtDate(l.createdAt)));
+      tr.appendChild(el('td', { 'class': 'name-cell' }, l.name));
+      tr.appendChild(el('td', { 'class': 'tabnum' }, l.phone));
+      tr.appendChild(el('td', null, l.course || '—'));
+      tr.appendChild(el('td', null, l.branch || '—'));
+      var tdS = el('td');
+      tdS.appendChild(pill(l.status));
+      tr.appendChild(tdS);
+      function toggle() { expanded[l.id] = !expanded[l.id]; renderRows(); }
+      tr.addEventListener('click', toggle);
+      tr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+      rows.appendChild(tr);
+      if (open) rows.appendChild(renderDetail(l));
+    });
+  }
+
+  function renderAll() { renderStats(); renderChips(); renderRows(); }
+
+  function showPanel(data) {
+    loginView.hidden = true;
+    panelView.hidden = false;
+    document.getElementById('welcome').textContent = data.name ? 'Hoş geldin, ' + data.name : '';
+    document.getElementById('notConfigured').hidden = !!data.kvConfigured;
+    document.getElementById('loadError').hidden = true;
+    leads = (data.leads || []).map(function (l) { if (!l.status) l.status = 'new'; return l; });
+    document.getElementById('loadedAt').textContent = 'Son yenileme: ' + new Date().toLocaleTimeString('tr-TR', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+    renderAll();
   }
 
   function loadLeads() {
     fetch('/api/leads').then(function (r) {
       if (r.status === 401) { showLogin(false); return null; }
-      if (r.status === 500) { return r.json().then(function (d) { showLogin(d.error === 'not_configured' ? 'not_configured' : 'invalid'); return null; }); }
+      if (r.status === 500) {
+        return r.json().then(function (d) {
+          if (d.error === 'not_configured') { showLogin('not_configured'); return null; }
+          if (!panelView.hidden) { document.getElementById('loadError').hidden = false; return null; }
+          showLogin(false);
+          return null;
+        });
+      }
       return r.json();
     }).then(function (data) {
       if (data) showPanel(data);
-    }).catch(function () { showLogin(false); });
+    }).catch(function () {
+      if (!panelView.hidden) document.getElementById('loadError').hidden = false;
+      else showLogin(false);
+    });
   }
 
   document.getElementById('loginForm').addEventListener('submit', function (e) {
@@ -115,11 +364,12 @@
     fetch('/api/admin-login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, password: password }),
+      body: JSON.stringify({ name: name, password: password })
     }).then(function (r) {
       if (r.status === 500) { showLogin('not_configured'); return; }
       if (!r.ok) { showLogin('invalid'); return; }
-      try { localStorage.setItem('em_admin_name', name); } catch (e) {}
+      try { localStorage.setItem('em_admin_name', name); } catch (err) {}
+      document.getElementById('password').value = '';
       loadLeads();
     }).catch(function () { showLogin('invalid'); });
   });
@@ -129,6 +379,8 @@
     if (savedName) document.getElementById('adminName').value = savedName;
   } catch (e) {}
 
+  search.addEventListener('input', renderRows);
+  document.getElementById('refreshBtn').addEventListener('click', loadLeads);
   document.getElementById('logoutBtn').addEventListener('click', function () {
     fetch('/api/admin-logout', { method: 'POST' }).then(function () { showLogin(false); });
   });
