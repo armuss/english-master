@@ -1071,6 +1071,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--em-yellow);
   padding: 3px 7px;
 }
 .book-cover .book-series { margin-top: 26px; }
+.book-cover .book-edition { margin-top: -6px; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
+.book-cover .book-level { margin-top: auto; }
 
 @media (max-width: 380px) {
   .logo-img { height: 36px; }
