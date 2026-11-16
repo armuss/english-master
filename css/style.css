@@ -149,8 +149,9 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 900px) {
-  .branch-contact-grid { grid-template-columns: 1fr; }
-  .branch-contact-card { aspect-ratio: auto; }
+  .branch-contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .branch-contact-card { aspect-ratio: auto; padding: 24px; }
+  .branch-contact-pills .pill span:last-child { min-width: 0; overflow-wrap: anywhere; font-size: 13px; }
 }
 
 /* Header */
@@ -507,6 +508,7 @@ section { padding: 88px 0; }
   gap: 16px;
 }
 .form-row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+.lead-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 48px; align-items: start; }
 label { font-size: 13px; font-weight: 700; margin-bottom: 6px; display: block; }
 input, select, textarea {
   width: 100%;
@@ -661,7 +663,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--em-yellow);
   .hero-photo { height: 280px; }
   .hero-copy h1 { font-size: 34px; }
   .feature-grid, .course-grid, .stat-grid, .branch-grid, .footer-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .form-row { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: minmax(0,1fr); }
+  .lead-form-grid { grid-template-columns: minmax(0,1fr); gap: 32px; }
   .cta-banner { flex-direction: column; align-items: flex-start; text-align: left; }
   .get-info-tab { display: none; }
 }

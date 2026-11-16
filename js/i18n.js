@@ -19,7 +19,6 @@
       "footer.courseExam": "IELTS / TOEFL / YDS",
       "footer.courseBusiness": "Business English",
       "footer.courseKids": "Junior",
-      "footer.email": "[Email Address]",
       "footer.address": "Atakum / Samsun",
       "footer.rights": "All rights reserved.",
 
@@ -348,7 +347,6 @@
       "footer.courseExam": "IELTS / TOEFL / YDS",
       "footer.courseBusiness": "İş İngilizcesi",
       "footer.courseKids": "Junior",
-      "footer.email": "[E-posta Adresi]",
       "footer.address": "Atakum / Samsun",
       "footer.rights": "Tüm hakları saklıdır.",
 
