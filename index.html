@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FFC31A">
 <title>English Master — Learn English With Confidence</title>
 <meta name="description" content="English Master is a language school offering General English, exam preparation (IELTS, TOEFL, YDS) and Business English courses, in person and online.">
 <link rel="stylesheet" href="css/style.css">
@@ -49,18 +51,37 @@
   </div>
 </header>
 
-<section class="hero" style="padding:0;">
-  <div class="hero-copy">
-    <span class="kicker" style="color:#3a3a35;" data-i18n="home.hero.kicker">Group &amp; 1-to-1 classes</span>
-    <h1 data-i18n-html="home.hero.title">Fluent starts<br>with one class.</h1>
-    <p data-i18n="home.hero.desc">Structured levels, real conversation practice, and a free placement test before you commit to anything.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="contact.html#lead-form" data-i18n="common.bookTrial">Book a Free Trial</a>
-      <a class="btn btn-outline" href="courses.html" data-i18n="home.hero.seeCourses">See Courses</a>
+<section class="hero-talk" id="heroTalk">
+  <div class="container hero-talk-inner">
+    <div class="hero-talk-copy">
+      <span class="kicker" data-i18n="home.hero.kicker">Group &amp; 1-to-1 classes</span>
+      <h1 class="hero-talk-title" id="heroTitle" data-i18n-html="home.hero.title">If You Have a Goal,<br><em>Take the First Step</em> Now!</h1>
+      <p data-i18n="home.hero.desc">Sometimes big changes start with just one decision. Discover your level, set your goal, and let's build the right program for you together. Try our teaching system for free!</p>
+      <div class="hero-actions">
+        <a class="btn btn-secondary btn-shine" href="contact.html#lead-form">
+          <span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span data-i18n="common.bookTrial">Book a Free Trial</span>
+        </a>
+        <a class="btn btn-outline-light" href="courses.html" data-i18n="home.hero.seeCourses">See Courses</a>
+      </div>
     </div>
-  </div>
-  <div class="hero-photo">
-    <img src="images/korfez-marina-promo.jpg" alt="English Master Körfez Marina branch opening soon" class="hero-photo-img">
+    <div class="hero-talk-art">
+      <div class="talk-stage" id="talkStage">
+        <div class="talk-layer" data-depth="-6">
+          <span class="talk-ring talk-ring-dash"></span>
+          <span class="talk-ring talk-ring-arc"></span>
+        </div>
+        <div class="talk-layer" data-depth="10">
+          <div class="talk-photo"><img src="images/korfez-marina-promo.jpg" alt="English Master students in front of the Körfez Marina branch" data-i18n-alt="home.hero.photoAlt"></div>
+        </div>
+        <div class="talk-layer" data-depth="22" aria-hidden="true">
+          <div class="talk-bubble is-white talk-b1"><small data-i18n="home.hero.teacher">Teacher</small>How are you today?</div>
+          <div class="talk-bubble is-yellow talk-b2"><small data-i18n="home.hero.you">You</small>I'm great, thanks!</div>
+          <div class="talk-bubble is-white talk-b3"><small data-i18n="home.hero.teacher">Teacher</small>Ready for IELTS?</div>
+          <div class="talk-bubble is-yellow talk-b4"><small data-i18n="home.hero.you">You</small>Yes, let's start!</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -293,6 +314,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/motion.js"></script>
 <script src="js/main.js"></script>
+<script src="js/hero.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -1,3 +1,20 @@
+// Older browsers (pre-2017 Safari/Android) lack NodeList.forEach, which every script here uses.
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }
+
+// Safari before 14.1 (iOS 14.4 and older) ignores "gap" on flex layouts; flag it so style.css can add margins instead.
+(function () {
+  var box = document.createElement("div");
+  box.style.display = "flex";
+  box.style.flexDirection = "column";
+  box.style.rowGap = "1px";
+  box.appendChild(document.createElement("div"));
+  box.appendChild(document.createElement("div"));
+  document.documentElement.appendChild(box);
+  var supported = box.scrollHeight === 1;
+  box.parentNode.removeChild(box);
+  if (!supported) document.documentElement.className += " no-flexgap";
+})();
+
 (function () {
   var translations = {
     en: {
@@ -23,7 +40,10 @@
       "footer.rights": "All rights reserved.",
 
       "home.hero.kicker": "Group & 1-to-1 classes",
-      "home.hero.title": "If You Have a Goal,<br>Take the First Step Now!",
+      "home.hero.title": "If You Have a Goal,<br><em>Take the First Step</em> Now!",
+      "home.hero.teacher": "Teacher",
+      "home.hero.you": "You",
+      "home.hero.photoAlt": "English Master students in front of the Körfez Marina branch",
       "home.hero.desc": "Sometimes big changes start with just one decision. Discover your level, set your goal, and let's build the right program for you together. Try our teaching system for free!",
       "home.hero.seeCourses": "See Courses",
       "home.hero.photoPlaceholder": "[ Student / classroom photo ]",
@@ -351,7 +371,10 @@
       "footer.rights": "Tüm hakları saklıdır.",
 
       "home.hero.kicker": "Grup ve Birebir Dersler",
-      "home.hero.title": "Bir Hedefin Varsa<br>İlk Adımı Şimdi At!",
+      "home.hero.title": "Bir Hedefin Varsa<br><em>İlk Adımı</em> Şimdi At!",
+      "home.hero.teacher": "Öğretmen",
+      "home.hero.you": "Sen",
+      "home.hero.photoAlt": "Körfez Marina şubesinin önünde English Master öğrencileri",
       "home.hero.desc": "Bazen büyük değişimler, yalnızca bir kararla başlar. Seviyeni keşfet, hedefini belirle ve sana uygun eğitim programını birlikte oluşturalım. Eğitim sistemimizi ücretsiz deneyimle!",
       "home.hero.seeCourses": "Kurslara Göz At",
       "home.hero.photoPlaceholder": "[ Öğrenci / sınıf fotoğrafı ]",
@@ -670,6 +693,10 @@
       var key = el.getAttribute("data-i18n-html");
       if (dict[key] != null) el.innerHTML = dict[key];
     });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-alt");
+      if (dict[key] != null) el.setAttribute("alt", dict[key]);
+    });
     document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
       var key = el.getAttribute("data-i18n-placeholder");
       if (dict[key] != null) el.setAttribute("placeholder", dict[key]);
@@ -679,6 +706,10 @@
       btn.classList.toggle("active", active);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
+    var evt;
+    try { evt = new CustomEvent("em:lang", { detail: lang }); }
+    catch (e) { evt = document.createEvent("CustomEvent"); evt.initCustomEvent("em:lang", false, false, lang); }
+    document.dispatchEvent(evt);
   }
 
   function setLang(lang) {

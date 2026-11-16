@@ -73,27 +73,29 @@ document.addEventListener('DOMContentLoaded', function () {
         consent: !!(consentCheckbox && consentCheckbox.checked),
       };
 
-      fetch('/api/submit-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('submit failed');
-          if (success) success.classList.add('visible');
-          leadForm.reset();
-          if (consentCheckbox) {
-            consentCheckbox.disabled = true;
-            if (consentHint) consentHint.style.display = '';
-            if (consentRow) consentRow.classList.remove('consent-ready');
-          }
-        })
-        .catch(function () {
-          if (error) error.classList.add('visible');
-        })
-        .finally(function () {
-          if (submitBtn) submitBtn.disabled = false;
-        });
+      // XMLHttpRequest instead of fetch/Promise.finally so older phones (pre-2018 Safari/Android) can submit too.
+      var done = function (ok) {
+        if (submitBtn) submitBtn.disabled = false;
+        if (!ok) { if (error) error.classList.add('visible'); return; }
+        if (success) success.classList.add('visible');
+        leadForm.reset();
+        if (consentCheckbox) {
+          consentCheckbox.disabled = true;
+          if (consentHint) consentHint.style.display = '';
+          if (consentRow) consentRow.classList.remove('consent-ready');
+        }
+      };
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/submit-lead', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.timeout = 20000;
+        xhr.onload = function () { done(xhr.status >= 200 && xhr.status < 300); };
+        xhr.onerror = xhr.ontimeout = function () { done(false); };
+        xhr.send(JSON.stringify(payload));
+      } catch (err) {
+        done(false);
+      }
     });
   }
 });
